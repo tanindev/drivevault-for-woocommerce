@@ -19,22 +19,23 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! headers_sent() ) {
-	status_header( ! empty( $status_code ) ? (int) $status_code : 502 );
+	status_header( ! empty( $status_code ) ? (int) $status_code : ( ! empty( $drivevault_status_code ) ? (int) $drivevault_status_code : 502 ) );
 	header( 'Content-Type: text/html; charset=' . get_bloginfo( 'charset' ) );
 }
 
-$site_name   = ! empty( $site_name ) ? $site_name : get_bloginfo( 'name' );
-$home_url    = ! empty( $home_url ) ? $home_url : home_url( '/' );
-$title       = ! empty( $title ) ? $title : __( 'Download Unavailable', 'drivevault-for-woocommerce' );
-$message     = ! empty( $message ) ? $message : __( 'Error accessing Google Drive file: Google Drive account is not connected.', 'drivevault-for-woocommerce' );
+$drivevault_site_name = ! empty( $site_name ) ? $site_name : ( ! empty( $drivevault_site_name ) ? $drivevault_site_name : get_bloginfo( 'name' ) );
+$drivevault_home_url  = ! empty( $home_url ) ? $home_url : ( ! empty( $drivevault_home_url ) ? $drivevault_home_url : home_url( '/' ) );
+$drivevault_title     = ! empty( $title ) ? $title : ( ! empty( $drivevault_title ) ? $drivevault_title : __( 'Download Unavailable', 'drivevault-for-woocommerce' ) );
+$drivevault_message   = ! empty( $message ) ? $message : ( ! empty( $drivevault_message ) ? $drivevault_message : __( 'Error accessing Google Drive file: Google Drive account is not connected.', 'drivevault-for-woocommerce' ) );
 
-if ( empty( $account_url ) ) {
-	$account_url = function_exists( 'wc_get_account_endpoint_url' ) ? wc_get_account_endpoint_url( 'downloads' ) : '';
-	if ( empty( $account_url ) && function_exists( 'wc_get_page_permalink' ) ) {
-		$account_url = wc_get_page_permalink( 'myaccount' );
+$drivevault_account_url = ! empty( $account_url ) ? $account_url : ( ! empty( $drivevault_account_url ) ? $drivevault_account_url : '' );
+if ( empty( $drivevault_account_url ) ) {
+	$drivevault_account_url = function_exists( 'wc_get_account_endpoint_url' ) ? wc_get_account_endpoint_url( 'downloads' ) : '';
+	if ( empty( $drivevault_account_url ) && function_exists( 'wc_get_page_permalink' ) ) {
+		$drivevault_account_url = wc_get_page_permalink( 'myaccount' );
 	}
-	if ( empty( $account_url ) ) {
-		$account_url = $home_url;
+	if ( empty( $drivevault_account_url ) ) {
+		$drivevault_account_url = $drivevault_home_url;
 	}
 }
 
@@ -52,7 +53,7 @@ wp_enqueue_style(
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="robots" content="noindex, nofollow">
-	<title><?php echo esc_html( $title . ' - ' . $site_name ); ?></title>
+	<title><?php echo esc_html( $drivevault_title . ' - ' . $drivevault_site_name ); ?></title>
 	<?php
 	wp_print_styles( 'drivevault-download-error' );
 	do_action( 'drivevault_download_error_head' );
@@ -62,8 +63,8 @@ wp_enqueue_style(
 	<?php do_action( 'drivevault_before_download_error_card' ); ?>
 
 	<div class="dv-error-card">
-		<a href="<?php echo esc_url( $home_url ); ?>" class="dv-brand">
-			<?php echo esc_html( $site_name ); ?>
+		<a href="<?php echo esc_url( $drivevault_home_url ); ?>" class="dv-brand">
+			<?php echo esc_html( $drivevault_site_name ); ?>
 		</a>
 
 		<div class="dv-icon-wrap" aria-hidden="true">
@@ -72,10 +73,10 @@ wp_enqueue_style(
 			</svg>
 		</div>
 
-		<h1 class="dv-title"><?php echo esc_html( $title ); ?></h1>
+		<h1 class="dv-title"><?php echo esc_html( $drivevault_title ); ?></h1>
 
 		<div class="dv-message-box">
-			<?php echo esc_html( $message ); ?>
+			<?php echo esc_html( $drivevault_message ); ?>
 		</div>
 
 		<p class="dv-help-text">
@@ -83,10 +84,10 @@ wp_enqueue_style(
 		</p>
 
 		<div class="dv-actions">
-			<a href="<?php echo esc_url( $account_url ); ?>" class="dv-btn dv-btn-primary">
+			<a href="<?php echo esc_url( $drivevault_account_url ); ?>" class="dv-btn dv-btn-primary">
 				<?php esc_html_e( 'My Downloads', 'drivevault-for-woocommerce' ); ?>
 			</a>
-			<a href="<?php echo esc_url( $home_url ); ?>" class="dv-btn dv-btn-secondary">
+			<a href="<?php echo esc_url( $drivevault_home_url ); ?>" class="dv-btn dv-btn-secondary">
 				<?php esc_html_e( 'Return to Store', 'drivevault-for-woocommerce' ); ?>
 			</a>
 		</div>

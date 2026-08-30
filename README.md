@@ -30,4 +30,3 @@ npm run build:prod
 ## License
 
 GPL-2.0-or-later
-# drivevault-for-woocommerce
