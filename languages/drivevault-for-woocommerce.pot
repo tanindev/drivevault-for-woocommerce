@@ -1,0 +1,618 @@
+# Copyright (C) 2026 Tanin Ahmed
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: DriveVault for WooCommerce 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/drivevault-for-woocommerce\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-30T01:19:57+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: drivevault-for-woocommerce\n"
+
+#. Plugin Name of the plugin
+#: drivevault-for-woocommerce.php
+#: drivevault-for-woocommerce.php:68
+msgid "DriveVault for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: drivevault-for-woocommerce.php
+msgid "https://github.com/taninahmed/drivevault-for-woocommerce"
+msgstr ""
+
+#. Description of the plugin
+#: drivevault-for-woocommerce.php
+msgid "Seamlessly attach and serve WooCommerce downloadable products directly from Google Drive with a modern React UI."
+msgstr ""
+
+#. Author of the plugin
+#: drivevault-for-woocommerce.php
+msgid "Tanin Ahmed"
+msgstr ""
+
+#. Author URI of the plugin
+#: drivevault-for-woocommerce.php
+msgid "https://taninahmed.com"
+msgstr ""
+
+#: drivevault-for-woocommerce.php:69
+msgid "requires WooCommerce to be installed and active."
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:29
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:41
+msgid "Google Drive Downloads"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:42
+#: includes/Admin/Assets.php:45
+msgid "Google Drive"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:57
+msgid "Loading Google Drive Integration..."
+msgstr ""
+
+#: includes/Admin/Assets.php:44
+msgid "Add Google Drive File"
+msgstr ""
+
+#: includes/Admin/Assets.php:46
+#: src/components/DriveSearchBar.js:57
+msgid "Search files in Google Drive..."
+msgstr ""
+
+#: includes/Admin/Assets.php:47
+msgid "Insert Selected Files"
+msgstr ""
+
+#: includes/Admin/Assets.php:48
+#: src/components/FilePickerModal.js:221
+msgid "Cancel"
+msgstr ""
+
+#: includes/Admin/Assets.php:49
+msgid "No files found in this folder."
+msgstr ""
+
+#: includes/Admin/Assets.php:50
+#: src/components/Settings/ApiSettings.js:205
+msgid "Connecting..."
+msgstr ""
+
+#: includes/Admin/Assets.php:51
+#: src/components/common/ConnectionBadge.js:16
+msgid "Connected"
+msgstr ""
+
+#: includes/Admin/Assets.php:52
+msgid "Disconnected"
+msgstr ""
+
+#: includes/API/Controllers/AuthController.php:118
+msgid "Google Drive account connected successfully!"
+msgstr ""
+
+#: includes/API/Controllers/AuthController.php:131
+msgid "Google Drive disconnected."
+msgstr ""
+
+#: includes/API/Controllers/DriveController.php:111
+#: includes/API/Controllers/DriveController.php:137
+msgid "Google Drive is not connected."
+msgstr ""
+
+#: includes/API/Controllers/DriveController.php:156
+msgid "Cache cleared successfully."
+msgstr ""
+
+#: includes/API/Controllers/SettingsController.php:75
+#: includes/API/Controllers/SettingsController.php:107
+#: templates/download-error.php:29
+#: src/components/Settings/DownloadSettings.js:70
+#: src/components/Settings/DownloadSettings.js:83
+msgid "Error accessing Google Drive file: Google Drive account is not connected."
+msgstr ""
+
+#: includes/API/Controllers/SettingsController.php:115
+#: src/index.js:113
+msgid "Settings saved successfully."
+msgstr ""
+
+#: includes/Helpers/Formatter.php:41
+msgid "Folder"
+msgstr ""
+
+#: includes/Helpers/Formatter.php:49
+msgid "Image"
+msgstr ""
+
+#: includes/Helpers/Formatter.php:57
+msgid "Video"
+msgstr ""
+
+#: includes/Helpers/Formatter.php:65
+msgid "Audio"
+msgstr ""
+
+#: includes/Helpers/Formatter.php:73
+msgid "Archive / ZIP"
+msgstr ""
+
+#: includes/Helpers/Formatter.php:81
+msgid "PDF Document"
+msgstr ""
+
+#: includes/Helpers/Formatter.php:89
+msgid "Spreadsheet"
+msgstr ""
+
+#: includes/Helpers/Formatter.php:97
+msgid "Document"
+msgstr ""
+
+#: includes/Helpers/Formatter.php:104
+msgid "File"
+msgstr ""
+
+#. translators: %s: Error message from Google Drive API
+#: includes/Services/DownloadHandler.php:77
+#, php-format
+msgid "Error accessing Google Drive file: %s"
+msgstr ""
+
+#: includes/Services/DownloadHandler.php:83
+#: includes/Services/DownloadHandler.php:141
+#: includes/Services/DownloadHandler.php:267
+#: templates/download-error.php:28
+msgid "Download Unavailable"
+msgstr ""
+
+#: includes/Services/DownloadHandler.php:137
+msgid "Google Drive authentication expired. Please contact site administrator."
+msgstr ""
+
+#: includes/Services/DownloadHandler.php:248
+msgid "Failed to stream file from Google Drive. Please try again in a few moments."
+msgstr ""
+
+#: includes/Services/DownloadHandler.php:249
+msgid "Download Failed"
+msgstr ""
+
+#. translators: %d: HTTP response status code
+#: includes/Services/GoogleDriveClient.php:68
+#, php-format
+msgid "Google Drive API error: %d"
+msgstr ""
+
+#: includes/Services/GoogleDriveClient.php:274
+msgid "Unlimited"
+msgstr ""
+
+#: includes/Services/OAuthManager.php:71
+msgid "Google Client ID and Client Secret are required."
+msgstr ""
+
+#: includes/Services/OAuthManager.php:99
+#: includes/Services/OAuthManager.php:208
+msgid "Missing Google Client ID or Secret."
+msgstr ""
+
+#: includes/Services/OAuthManager.php:121
+msgid "Failed to exchange authorization code."
+msgstr ""
+
+#: includes/Services/OAuthManager.php:183
+msgid "Google Drive account is not connected."
+msgstr ""
+
+#: includes/Services/OAuthManager.php:193
+msgid "Refresh token is missing. Please reconnect your Google Drive account."
+msgstr ""
+
+#: includes/Services/OAuthManager.php:229
+msgid "Failed to refresh Google Drive token."
+msgstr ""
+
+#: templates/download-error.php:82
+msgid "Please check back shortly or contact store support if you need assistance."
+msgstr ""
+
+#: templates/download-error.php:87
+msgid "My Downloads"
+msgstr ""
+
+#: templates/download-error.php:90
+msgid "Return to Store"
+msgstr ""
+
+#: src/components/common/ConnectionBadge.js:36
+msgid "Not Connected"
+msgstr ""
+
+#: src/components/DriveBreadcrumbs.js:41
+msgid "Breadcrumbs"
+msgstr ""
+
+#: src/components/DriveBreadcrumbs.js:87
+msgid "Refresh folder"
+msgstr ""
+
+#: src/components/DriveBrowser.js:49
+msgid "Loading Google Drive files..."
+msgstr ""
+
+#: src/components/DriveBrowser.js:63
+msgid "Error loading files"
+msgstr ""
+
+#: src/components/DriveBrowser.js:78
+msgid "No files or folders found"
+msgstr ""
+
+#: src/components/DriveBrowser.js:84
+msgid "This folder is empty or no files matched your search filter."
+msgstr ""
+
+#: src/components/DriveBrowser.js:101
+msgid "Name"
+msgstr ""
+
+#: src/components/DriveBrowser.js:104
+msgid "Type"
+msgstr ""
+
+#: src/components/DriveBrowser.js:107
+msgid "Size"
+msgstr ""
+
+#: src/components/DriveSearchBar.js:67
+msgid "Clear search"
+msgstr ""
+
+#: src/components/DriveSearchBar.js:84
+msgid "All Items"
+msgstr ""
+
+#: src/components/DriveSearchBar.js:87
+msgid "Files Only"
+msgstr ""
+
+#: src/components/DriveSearchBar.js:90
+msgid "Folders Only"
+msgstr ""
+
+#: src/components/FilePickerModal.js:91
+msgid "Select Downloadable Files from Google Drive"
+msgstr ""
+
+#: src/components/FilePickerModal.js:103
+msgid "Close modal"
+msgstr ""
+
+#: src/components/FilePickerModal.js:124
+msgid "Google Drive is Not Connected"
+msgstr ""
+
+#: src/components/FilePickerModal.js:130
+msgid "Please configure your Google Cloud API credentials and connect your account in the plugin settings to browse files."
+msgstr ""
+
+#: src/components/FilePickerModal.js:143
+msgid "Go to Google Drive Settings"
+msgstr ""
+
+#. translators: %d: count
+#: src/components/FilePickerModal.js:175
+#, js-format
+msgid "%d file(s) selected"
+msgstr ""
+
+#: src/components/FilePickerModal.js:186
+msgid "Clear selection"
+msgstr ""
+
+#: src/components/FilePickerModal.js:193
+msgid "Clear"
+msgstr ""
+
+#: src/components/FilePickerModal.js:207
+msgid "Click on items to select files for download"
+msgstr ""
+
+#. translators: %d: count
+#: src/components/FilePickerModal.js:238
+#, js-format
+msgid "Insert %d File(s)"
+msgstr ""
+
+#: src/components/FilePickerModal.js:244
+msgid "Insert Selected"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:48
+msgid "Failed to generate Google Auth URL. Ensure Client ID & Secret are saved."
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:60
+msgid "Are you sure you want to disconnect your Google Drive account?"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:78
+msgid "Google Drive disconnected successfully."
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:88
+msgid "Failed to disconnect Google Drive."
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:129
+msgid "Google Drive Account Connection"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:136
+msgid "Connected Account:"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:143
+msgid "Active Account"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:151
+msgid "Connect your Google Cloud project to allow browsing and attaching Drive files to WooCommerce products."
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:172
+msgid "Disconnecting..."
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:182
+msgid "Disconnect Account"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:215
+msgid "Authorize & Connect Google Drive"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:234
+msgid "Google Cloud API Credentials"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:240
+msgid "Configure OAuth 2.0 Client credentials from your Google Cloud Console project."
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:263
+msgid "Hide Setup Guide"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:267
+msgid "View Setup Guide"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:280
+msgid "Step-by-Step Setup Guide:"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:348
+#: src/components/Settings/ApiSettings.js:452
+msgid "Copied!"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:352
+#: src/components/Settings/ApiSettings.js:456
+msgid "Copy URI"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:376
+msgid "Google Client ID"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:392
+msgid "Your OAuth 2.0 Client ID generated in Google Cloud Console."
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:401
+msgid "Google Client Secret"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:417
+msgid "Your OAuth 2.0 Client Secret generated in Google Cloud Console."
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:426
+msgid "Authorized Redirect URI"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:464
+msgid "Must match the Authorized redirect URI in your Google Cloud Console credentials."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:16
+msgid "Download & Delivery Options"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:22
+msgid "Configure how customer downloadable files are streamed and cached."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:31
+msgid "File Delivery Method"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:35
+msgid "Direct Streaming proxies the download securely through your server, concealing the direct Google Drive URL from the buyer and supporting HTTP range resuming."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:42
+msgid "Direct Chunked Stream (Recommended & Most Secure)"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:49
+msgid "Direct URL Redirect (Fast for public shared files)"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:64
+msgid "Google Drive Disconnected / Inaccessible Error Message"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:79
+msgid "Message displayed to customers when attempting to download a Google Drive file while the account is disconnected or inaccessible."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:92
+msgid "Stream Chunk Buffer Size (MB)"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:102
+msgid "Memory buffer size in megabytes used when streaming large files from Google Drive."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:111
+msgid "Enable Shared / Team Drives"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:119
+msgid "Allow browsing and linking downloadable files from Google Workspace Shared Drives (Team Drives)."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:128
+msgid "Drive Directory Cache TTL (Minutes)"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:140
+msgid "How long Google Drive file listings are cached in WordPress transients before refetching."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:149
+msgid "Erase Plugin Data on Uninstall"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:157
+msgid "Check to delete stored Google tokens and settings if the plugin is deleted."
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:37
+msgid "Directory transient cache cleared successfully."
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:48
+msgid "Failed to clear cache."
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:78
+msgid "Google Drive Storage & Quota"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:84
+msgid "Live overview of your Google Cloud storage usage and limits."
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:100
+msgid "Clearing..."
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:113
+msgid "Flush Cache"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:126
+msgid "Connect your Google Drive account in API Settings to view storage quota and profile details."
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:136
+msgid "Space Used"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:147
+msgid "Total Storage"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:158
+msgid "Usage Percentage"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:217
+msgid "System Environment Check"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:223
+msgid "Server extensions and compatibility indicators."
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:235
+msgid "cURL Extension"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:244
+msgid "Enabled (Required for Streaming)"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:254
+msgid "OpenSSL / HTTPS"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:263
+msgid "Supported"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:273
+msgid "WooCommerce Download Engine"
+msgstr ""
+
+#: src/components/Settings/SystemStatus.js:282
+msgid "Active"
+msgstr ""
+
+#: src/index.js:61
+msgid "Connected to Google Drive successfully!"
+msgstr ""
+
+#: src/index.js:79
+msgid "Failed to complete Google authentication."
+msgstr ""
+
+#: src/index.js:123
+msgid "Failed to save settings."
+msgstr ""
+
+#: src/index.js:134
+msgid "API & Connection"
+msgstr ""
+
+#: src/index.js:139
+msgid "Download Settings"
+msgstr ""
+
+#: src/index.js:144
+msgid "Quota & Status"
+msgstr ""
+
+#: src/index.js:159
+msgid "WooCommerce Google Drive Integration"
+msgstr ""
+
+#: src/index.js:165
+msgid "Attach Google Drive files as downloadable products with high-speed secure streaming."
+msgstr ""
+
+#: src/index.js:195
+msgid "Authenticating with Google Cloud..."
+msgstr ""
+
+#: src/index.js:249
+msgid "Saving..."
+msgstr ""
+
+#: src/index.js:259
+msgid "Save Settings"
+msgstr ""

@@ -1,0 +1,682 @@
+// Admin Styling for Easy WooCommerce Downloadable Products for Google Drive
+
+$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+$primary: #1a73e8;
+$primary-hover: #1557d0;
+$primary-light: #e8f0fe;
+$gray-50: #f8fafc;
+$gray-100: #f1f5f9;
+$gray-200: #e2e8f0;
+$gray-300: #cbd5e1;
+$gray-400: #94a3b8;
+$gray-500: #64748b;
+$gray-700: #334155;
+$gray-900: #0f172a;
+$success: #137333;
+$danger: #d93025;
+
+.drivevault-admin-wrap {
+    margin: 24px 24px 0 0;
+    font-family: $font-family;
+    color: $gray-900;
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+.drivevault-app {
+    max-width: 960px;
+    margin: 0 auto;
+
+    // Header Bar
+    .drivevault-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #ffffff;
+        padding: 20px 24px;
+        border-radius: 12px;
+        border: 1px solid $gray-200;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+
+        .drivevault-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            .drivevault-logo-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .drivevault-header-titles {
+                h1 {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    color: $gray-900;
+                    margin: 0 0 4px 0;
+                    padding: 0;
+                    line-height: 1.25;
+                }
+
+                .drivevault-subtitle {
+                    font-size: 0.84375rem;
+                    color: $gray-500;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    // Status Badge
+    .drivevault-status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+
+        &--connected {
+            background: #e6f4ea;
+            color: $success;
+            border: 1px solid #ceead6;
+        }
+
+        &--disconnected {
+            background: #fce8e6;
+            color: #c5221f;
+            border: 1px solid #fad2cf;
+        }
+
+        .drivevault-status-indicator {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: currentColor;
+
+            &--pulse {
+                box-shadow: 0 0 0 0 rgba(19, 115, 51, 0.4);
+                animation: drivevaultPulse 2s infinite;
+            }
+        }
+
+        .drivevault-status-email {
+            margin-left: 4px;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+    }
+
+    // Main Container Body
+    .drivevault-body-card {
+        background: #ffffff;
+        border: 1px solid $gray-200;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        overflow: hidden;
+
+        .drivevault-tabs-header-bar {
+            padding: 16px 24px;
+            background: #ffffff;
+            border-bottom: 1px solid $gray-200;
+        }
+
+        .drivevault-tab-content-wrapper {
+            padding: 24px;
+        }
+    }
+
+    // Modern Capsule Tabs Component
+    .drivevault-modern-tabs {
+        width: fit-content;
+        background: $gray-100;
+        border-radius: 10px;
+        padding: 4px;
+
+        &__wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        &__indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+            transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1), width 300ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 150ms ease;
+            z-index: 0;
+        }
+
+        &__item {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 18px;
+            height: 38px;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: $gray-500;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: color 200ms ease;
+
+            .drivevault-modern-tabs__icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: inherit;
+            }
+
+            &:hover:not(.is-active) {
+                color: $gray-900;
+            }
+
+            &.is-active {
+                color: $primary;
+                font-weight: 600;
+
+                .drivevault-modern-tabs__icon {
+                    color: $primary;
+                }
+            }
+        }
+    }
+
+    // UI Cards
+    .drivevault-ui-card {
+        background: #ffffff;
+        border: 1px solid $gray-200;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        transition: border-color 0.2s;
+
+        &__header {
+            padding: 16px 20px;
+            border-bottom: 1px solid $gray-100;
+            background: #fafbfc;
+
+            h2 {
+                font-size: 0.96875rem;
+                font-weight: 600;
+                color: $gray-900;
+                margin: 0;
+                line-height: 1.3;
+            }
+
+            .drivevault-card-header-sub {
+                font-size: 0.8125rem;
+                color: $gray-500;
+                margin: 3px 0 0 0;
+            }
+        }
+
+        &__body {
+            padding: 20px;
+        }
+    }
+
+    // Google Connection Card
+    .drivevault-auth-card {
+        background: linear-gradient(135deg, #f8faff 0%, #f0f6ff 100%);
+        border: 1px solid #d4e4fc;
+        border-radius: 10px;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+
+        &.is-connected {
+            background: linear-gradient(135deg, #f7fcf8 0%, #f0fbf2 100%);
+            border: 1px solid #d0f0d8;
+        }
+
+        .drivevault-auth-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+
+            .drivevault-auth-info {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+
+                .drivevault-auth-logo {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 12px;
+                    background: #ffffff;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                }
+
+                .drivevault-auth-text {
+                    h3 {
+                        margin: 0 0 4px 0;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        color: $gray-900;
+                    }
+
+                    .drivevault-auth-desc {
+                        margin: 0;
+                        font-size: 0.84375rem;
+                        color: $gray-500;
+                        max-width: 520px;
+                    }
+
+                    .drivevault-connected-email {
+                        margin: 0;
+                        font-size: 0.84375rem;
+                        color: $gray-700;
+
+                        .drivevault-email-tag {
+                            color: $success;
+                            background: #ffffff;
+                            padding: 2px 8px;
+                            border-radius: 4px;
+                            border: 1px solid #ceead6;
+                            margin-left: 4px;
+                        }
+                    }
+                }
+            }
+
+            .drivevault-auth-actions {
+                flex-shrink: 0;
+            }
+        }
+    }
+
+    // Modern Buttons
+    .drivevault-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 9px 18px;
+        height: 40px;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        &--primary {
+            background: $primary;
+            color: #ffffff;
+
+            &:hover:not(:disabled) {
+                background: $primary-hover;
+                box-shadow: 0 2px 6px rgba(26, 115, 232, 0.25);
+            }
+        }
+
+        &--google {
+            background: #1a73e8;
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(26, 115, 232, 0.28);
+
+            &:hover:not(:disabled) {
+                background: #1557d0;
+                box-shadow: 0 4px 10px rgba(26, 115, 232, 0.35);
+            }
+        }
+
+        &--secondary {
+            background: $gray-100;
+            color: $gray-700;
+            border-color: $gray-200;
+
+            &:hover:not(:disabled) {
+                background: $gray-200;
+                color: $gray-900;
+            }
+        }
+
+        &--danger-outline {
+            background: #ffffff;
+            color: $danger;
+            border-color: #fca5a5;
+
+            &:hover:not(:disabled) {
+                background: #fef2f2;
+                border-color: #f87171;
+            }
+        }
+
+        &--ghost {
+            background: transparent;
+            color: $primary;
+            border: none;
+            padding: 6px 10px;
+            height: auto;
+
+            &:hover:not(:disabled) {
+                background: $primary-light;
+            }
+        }
+    }
+
+    // Modern Form Elements
+    .drivevault-form-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .drivevault-form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .drivevault-label {
+            font-size: 0.84375rem;
+            font-weight: 600;
+            color: $gray-700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            .drivevault-required {
+                color: $danger;
+            }
+        }
+
+        .drivevault-help-text {
+            font-size: 0.8125rem;
+            color: $gray-500;
+        }
+    }
+
+    .drivevault-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid $gray-300;
+        border-radius: 8px;
+        padding: 0 14px;
+        font-size: 0.875rem;
+        color: $gray-900;
+        background: #ffffff;
+        transition: all 0.2s ease;
+
+        &:focus {
+            border-color: $primary;
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+            outline: none;
+        }
+
+        &.is-readonly {
+            background: $gray-100;
+            color: $gray-700;
+            cursor: text;
+        }
+    }
+
+    .drivevault-input-with-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .drivevault-input {
+            flex: 1;
+        }
+
+        .drivevault-btn {
+            flex-shrink: 0;
+        }
+    }
+
+    .drivevault-card-header-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    // Setup Guide
+    .drivevault-instructions-box {
+        background: $gray-50;
+        border: 1px solid $gray-200;
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+
+        h4 {
+            margin: 0 0 12px 0;
+            font-size: 0.9375rem;
+            color: $gray-900;
+        }
+
+        .drivevault-guide-steps {
+            margin: 0;
+            padding-left: 20px;
+
+            li {
+                margin-bottom: 10px;
+                font-size: 0.84375rem;
+                color: $gray-700;
+                line-height: 1.5;
+
+                code {
+                    background: #ffffff;
+                    border: 1px solid $gray-300;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    font-size: 0.8125rem;
+                    color: $primary;
+                }
+            }
+        }
+    }
+
+    .drivevault-code-copy-row {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 6px;
+    }
+
+    .drivevault-divider {
+        border: 0;
+        height: 1px;
+        background: $gray-100;
+        margin: 20px 0;
+    }
+
+    // Save Bar
+    .drivevault-save-bar {
+        padding: 16px 24px;
+        background: $gray-50;
+        border-top: 1px solid $gray-200;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .drivevault-notice-wrapper {
+        padding: 0 24px 16px 24px;
+    }
+
+    // Quota
+    .drivevault-quota-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 16px;
+
+        .drivevault-quota-metric {
+            background: $gray-50;
+            padding: 14px 16px;
+            border-radius: 8px;
+            border: 1px solid $gray-200;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            .drivevault-metric-label {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: $gray-500;
+                font-weight: 600;
+            }
+
+            .drivevault-metric-val {
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: $gray-900;
+            }
+        }
+    }
+
+    .drivevault-progress-track {
+        width: 100%;
+        height: 8px;
+        background: $gray-200;
+        border-radius: 4px;
+        overflow: hidden;
+
+        .drivevault-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+    }
+
+    .drivevault-status-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        td {
+            padding: 12px 0;
+            border-bottom: 1px solid $gray-100;
+            font-size: 0.875rem;
+
+            &:last-child {
+                text-align: right;
+            }
+        }
+    }
+
+    .drivevault-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+
+        &--success {
+            background: #e6f4ea;
+            color: $success;
+            border: 1px solid #ceead6;
+        }
+    }
+
+    // Skeleton Loader for Quota & Cards
+    .drivevault-skeleton-wrapper {
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .drivevault-skeleton-card {
+        min-height: 78px;
+        justify-content: center;
+    }
+
+    .drivevault-skeleton {
+        position: relative;
+        overflow: hidden;
+        background: $gray-200;
+        border-radius: 4px;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.65) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            animation: drivevaultShimmer 1.6s infinite ease-in-out;
+        }
+
+        &--label {
+            width: 90px;
+            height: 12px;
+            margin-bottom: 8px;
+        }
+
+        &--val {
+            width: 120px;
+            height: 24px;
+            border-radius: 6px;
+        }
+
+        &--bar {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+        }
+    }
+
+    .drivevault-skeleton-progress {
+        height: 8px;
+    }
+}
+
+@keyframes drivevaultPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(19, 115, 51, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba(19, 115, 51, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(19, 115, 51, 0);
+    }
+}
+
+@keyframes drivevaultShimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}

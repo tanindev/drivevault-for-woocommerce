@@ -1,0 +1,188 @@
+/**
+ * DriveVault for WooCommerce - Download Error Page Styles
+ *
+ * @package DriveVault
+ * @version 1.0.0
+ */
+
+:root {
+	--dv-bg: #f8fafc;
+	--dv-card-bg: #ffffff;
+	--dv-border: #e2e8f0;
+	--dv-text-main: #0f172a;
+	--dv-text-muted: #64748b;
+	--dv-primary: #1a73e8;
+	--dv-primary-hover: #1557d0;
+	--dv-danger: #d93025;
+	--dv-danger-bg: #fef2f2;
+	--dv-danger-border: #fee2e2;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body.drivevault-error-page {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	background-color: var(--dv-bg);
+	color: var(--dv-text-main);
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px 16px;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+}
+
+.dv-error-card {
+	background: var(--dv-card-bg);
+	border: 1px solid var(--dv-border);
+	border-radius: 16px;
+	box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+	max-width: 500px;
+	width: 100%;
+	padding: 40px 32px;
+	text-align: center;
+	animation: dvFadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dv-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--dv-text-muted);
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	margin-bottom: 24px;
+	padding: 5px 14px;
+	background: #f1f5f9;
+	border-radius: 20px;
+	transition: color 0.15s ease, background 0.15s ease;
+}
+
+.dv-brand:hover {
+	color: var(--dv-primary);
+	background: #e8f0fe;
+}
+
+.dv-icon-wrap {
+	width: 72px;
+	height: 72px;
+	border-radius: 50%;
+	background: var(--dv-danger-bg);
+	border: 1px solid var(--dv-danger-border);
+	color: var(--dv-danger);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 20px auto;
+}
+
+.dv-icon-wrap svg {
+	width: 36px;
+	height: 36px;
+	fill: currentColor;
+}
+
+.dv-title {
+	font-size: 1.35rem;
+	font-weight: 700;
+	color: var(--dv-text-main);
+	margin-bottom: 12px;
+	line-height: 1.3;
+}
+
+.dv-message-box {
+	background: #f8fafc;
+	border: 1px solid var(--dv-border);
+	border-radius: 10px;
+	padding: 16px 20px;
+	font-size: 0.9375rem;
+	color: #334155;
+	margin-bottom: 20px;
+	word-break: break-word;
+	line-height: 1.6;
+}
+
+.dv-help-text {
+	font-size: 0.8125rem;
+	color: var(--dv-text-muted);
+	margin-bottom: 28px;
+}
+
+.dv-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	justify-content: center;
+}
+
+.dv-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 10px 22px;
+	min-height: 42px;
+	font-size: 0.875rem;
+	font-weight: 600;
+	border-radius: 8px;
+	text-decoration: none;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	white-space: nowrap;
+	border: 1px solid transparent;
+}
+
+.dv-btn-primary {
+	background-color: var(--dv-primary);
+	color: #ffffff;
+	box-shadow: 0 1px 3px rgba(26, 115, 232, 0.25);
+}
+
+.dv-btn-primary:hover {
+	background-color: var(--dv-primary-hover);
+	box-shadow: 0 4px 10px rgba(26, 115, 232, 0.35);
+	transform: translateY(-1px);
+	color: #ffffff;
+}
+
+.dv-btn-secondary {
+	background-color: #f1f5f9;
+	color: #334155;
+	border-color: #e2e8f0;
+}
+
+.dv-btn-secondary:hover {
+	background-color: #e2e8f0;
+	color: var(--dv-text-main);
+}
+
+@keyframes dvFadeUp {
+	from {
+		opacity: 0;
+		transform: translateY(10px) scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@media (max-width: 480px) {
+	.dv-error-card {
+		padding: 32px 20px;
+	}
+	.dv-actions {
+		flex-direction: column;
+	}
+	.dv-btn {
+		width: 100%;
+	}
+}
