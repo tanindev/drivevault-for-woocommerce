@@ -72,14 +72,14 @@ class AuthController {
 	 * Permissions: Manage WooCommerce / Settings.
 	 */
 	public function check_admin_permissions() {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_woocommerce' ) || current_user_can( 'manage_options' );
 	}
 
 	/**
-	 * Permissions: Read status & browse drive (allowed for product editors).
+	 * Permissions: Read status & browse drive (allowed for product editors and admins).
 	 */
 	public function check_read_permissions() {
-		return current_user_can( 'edit_products' ) || current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'edit_products' ) || current_user_can( 'manage_woocommerce' ) || current_user_can( 'manage_options' );
 	}
 
 	/**

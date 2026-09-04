@@ -12,6 +12,7 @@
  * Domain Path:       /languages
  * Requires at least: 5.8
  * Requires PHP:      7.4
+ * Requires Plugins: woocommerce
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -89,7 +90,6 @@ register_activation_hook( __FILE__, function () {
 		'cache_ttl'          => 600,      // 10 minutes
 		'chunk_size_mb'      => 8,        // 8MB stream chunks
 		'enable_shared_drive'=> true,
-		'track_downloads'    => true,
 	);
 
 	if ( false === get_option( DRIVEVAULT_OPTION_SETTINGS ) ) {

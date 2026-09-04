@@ -46,6 +46,39 @@ class SettingsController {
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'update_settings' ),
 				'permission_callback' => array( $this, 'check_admin_permissions' ),
+				'args'                => array(
+					'client_id'                  => array(
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+					'client_secret'              => array(
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+					'download_method'            => array(
+						'type'              => 'string',
+						'enum'              => array( 'stream', 'redirect' ),
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+					'cache_ttl'                  => array(
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'chunk_size_mb'              => array(
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'enable_shared_drive'        => array(
+						'type' => 'boolean',
+					),
+					'delete_data_on_uninstall'   => array(
+						'type' => 'boolean',
+					),
+					'error_message_disconnected' => array(
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+				),
 			),
 		) );
 	}
@@ -54,7 +87,7 @@ class SettingsController {
 	 * Admin permissions check.
 	 */
 	public function check_admin_permissions() {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_woocommerce' ) || current_user_can( 'manage_options' );
 	}
 
 	/**
@@ -70,7 +103,6 @@ class SettingsController {
 			'cache_ttl'                  => 600,
 			'chunk_size_mb'              => 8,
 			'enable_shared_drive'        => true,
-			'track_downloads'            => true,
 			'delete_data_on_uninstall'   => false,
 			'error_message_disconnected' => __( 'Error accessing Google Drive file: Google Drive account is not connected.', 'drivevault-for-woocommerce' ),
 		);
@@ -102,7 +134,6 @@ class SettingsController {
 			'cache_ttl'                  => isset( $params['cache_ttl'] ) ? max( 0, absint( $params['cache_ttl'] ) ) : 600,
 			'chunk_size_mb'              => isset( $params['chunk_size_mb'] ) ? max( 1, min( 64, absint( $params['chunk_size_mb'] ) ) ) : 8,
 			'enable_shared_drive'        => ! empty( $params['enable_shared_drive'] ),
-			'track_downloads'            => ! empty( $params['track_downloads'] ),
 			'delete_data_on_uninstall'   => ! empty( $params['delete_data_on_uninstall'] ),
 			'error_message_disconnected' => isset( $params['error_message_disconnected'] ) ? sanitize_text_field( trim( $params['error_message_disconnected'] ) ) : ( isset( $current['error_message_disconnected'] ) ? $current['error_message_disconnected'] : __( 'Error accessing Google Drive file: Google Drive account is not connected.', 'drivevault-for-woocommerce' ) ),
 		);

@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-30T17:18:13+00:00\n"
+"POT-Creation-Date: 2026-09-04T00:01:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: drivevault-for-woocommerce\n"
 
 #. Plugin Name of the plugin
 #: drivevault-for-woocommerce.php
-#: drivevault-for-woocommerce.php:66
+#: drivevault-for-woocommerce.php:67
 msgid "DriveVault for WooCommerce"
 msgstr ""
 
@@ -40,7 +40,7 @@ msgstr ""
 msgid "https://profiles.wordpress.org/tanindev/"
 msgstr ""
 
-#: drivevault-for-woocommerce.php:67
+#: drivevault-for-woocommerce.php:68
 msgid "requires WooCommerce to be installed and active."
 msgstr ""
 
@@ -105,24 +105,24 @@ msgstr ""
 msgid "Google Drive disconnected."
 msgstr ""
 
-#: includes/API/Controllers/DriveController.php:111
-#: includes/API/Controllers/DriveController.php:137
+#: includes/API/Controllers/DriveController.php:122
+#: includes/API/Controllers/DriveController.php:148
 msgid "Google Drive is not connected."
 msgstr ""
 
-#: includes/API/Controllers/DriveController.php:156
+#: includes/API/Controllers/DriveController.php:167
 msgid "Cache cleared successfully."
 msgstr ""
 
-#: includes/API/Controllers/SettingsController.php:75
 #: includes/API/Controllers/SettingsController.php:107
+#: includes/API/Controllers/SettingsController.php:138
 #: templates/download-error.php:29
 #: src/components/Settings/DownloadSettings.js:70
 #: src/components/Settings/DownloadSettings.js:83
 msgid "Error accessing Google Drive file: Google Drive account is not connected."
 msgstr ""
 
-#: includes/API/Controllers/SettingsController.php:115
+#: includes/API/Controllers/SettingsController.php:146
 #: src/index.js:113
 msgid "Settings saved successfully."
 msgstr ""

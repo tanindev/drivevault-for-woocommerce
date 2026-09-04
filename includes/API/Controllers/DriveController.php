@@ -86,21 +86,32 @@ class DriveController {
 		register_rest_route( self::NAMESPACE, '/drive/quota', array(
 			'methods'             => WP_REST_Server::READABLE,
 			'callback'            => array( $this, 'get_quota' ),
-			'permission_callback' => array( $this, 'check_editor_permissions' ),
+			'permission_callback' => array( $this, 'check_admin_permissions' ),
 		) );
 
 		register_rest_route( self::NAMESPACE, '/drive/flush-cache', array(
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => array( $this, 'flush_cache' ),
-			'permission_callback' => array( $this, 'check_editor_permissions' ),
+			'permission_callback' => array( $this, 'check_admin_permissions' ),
 		) );
 	}
 
 	/**
-	 * Check permissions.
+	 * Admin permissions check (manage WooCommerce or options).
+	 *
+	 * @return bool
+	 */
+	public function check_admin_permissions() {
+		return current_user_can( 'manage_woocommerce' ) || current_user_can( 'manage_options' );
+	}
+
+	/**
+	 * Editor permissions check (edit products, manage WooCommerce, or options).
+	 *
+	 * @return bool
 	 */
 	public function check_editor_permissions() {
-		return current_user_can( 'edit_products' ) || current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'edit_products' ) || current_user_can( 'manage_woocommerce' ) || current_user_can( 'manage_options' );
 	}
 
 	/**

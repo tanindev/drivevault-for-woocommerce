@@ -100,12 +100,12 @@ class GoogleDriveClient {
 
 		if ( ! empty( $search ) ) {
 			// Search query across drive.
-			$escaped_search = str_replace( "'", "\\'", $search );
-			$query_parts[] = "name contains '{$escaped_search}'";
+			$escaped_search = addcslashes( $search, "'\\" );
+			$query_parts[]  = "name contains '{$escaped_search}'";
 		} else {
 			// Specific folder contents.
-			$escaped_folder = str_replace( "'", "\\'", $folder_id );
-			$query_parts[] = "'{$escaped_folder}' in parents";
+			$escaped_folder = addcslashes( $folder_id, "'\\" );
+			$query_parts[]  = "'{$escaped_folder}' in parents";
 		}
 
 		if ( 'folders' === $filter_type ) {

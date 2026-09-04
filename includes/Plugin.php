@@ -79,11 +79,11 @@ class Plugin {
 
 		global $wpdb;
 
-		$table = esc_sql( $wpdb->prefix . 'wc_product_download_directories' );
+		$table_name = $wpdb->prefix . 'wc_product_download_directories';
 
 		// Verify table exists.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table ) ) ) !== $table ) {
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table_name ) ) ) !== $table_name ) {
 			return;
 		}
 
@@ -94,12 +94,12 @@ class Plugin {
 		);
 
 		foreach ( $approved_urls as $url ) {
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT url_id FROM {$table} WHERE url = %s", $url ) );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT url_id FROM {$wpdb->prefix}wc_product_download_directories WHERE url = %s", $url ) );
 			if ( ! $exists ) {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 				$wpdb->insert(
-					$table,
+					$table_name,
 					array(
 						'url'     => $url,
 						'enabled' => 1,
@@ -108,7 +108,7 @@ class Plugin {
 			} else {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->update(
-					$table,
+					$table_name,
 					array( 'enabled' => 1 ),
 					array( 'url' => $url )
 				);
