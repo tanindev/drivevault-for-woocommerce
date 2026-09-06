@@ -45,7 +45,7 @@ if ( ! generatedWithWpCli ) {
 
 		// Regex for standard WordPress translation functions: __, _e, esc_html__, esc_html_e, esc_attr__, esc_attr_e, _x, _ex
 		const regex =
-			/\b(?:__|_e|esc_html__|esc_html_e|esc_attr__|esc_attr_e)\s*\(\s*(['"])((?:(?!\1)[^\\]|\\.)*)\1\s*,\s*(['"])(?:drivevault-for-woocommerce|easy-woocommerce-downloadable-products-for-google-drive)\3\s*\)/g;
+			/\b(?:__|_e|esc_html__|esc_html_e|esc_attr__|esc_attr_e)\s*\(\s*(['"])((?:(?!\1)[^\\]|\\.)*)\1\s*,\s*(['"])drivevault-for-woocommerce\3\s*\)/g;
 
 		lines.forEach( ( line, index ) => {
 			let match;

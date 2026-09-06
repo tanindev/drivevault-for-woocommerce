@@ -53,8 +53,13 @@ class AuthController {
 			'callback'            => array( $this, 'handle_callback' ),
 			'permission_callback' => array( $this, 'check_admin_permissions' ),
 			'args'                => array(
-				'code' => array(
+				'code'  => array(
 					'required'          => true,
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				'state' => array(
+					'required'          => false,
 					'type'              => 'string',
 					'sanitize_callback' => 'sanitize_text_field',
 				),
@@ -105,8 +110,9 @@ class AuthController {
 	 * Handle OAuth authorization code exchange.
 	 */
 	public function handle_callback( WP_REST_Request $request ) {
-		$code = $request->get_param( 'code' );
-		$result = $this->oauth->handle_auth_code( $code );
+		$code   = $request->get_param( 'code' );
+		$state  = $request->get_param( 'state' );
+		$result = $this->oauth->handle_auth_code( $code, $state );
 
 		if ( is_wp_error( $result ) ) {
 			return $result;

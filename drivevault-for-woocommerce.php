@@ -86,14 +86,14 @@ register_activation_hook( __FILE__, function () {
 	$default_settings = array(
 		'client_id'          => '',
 		'client_secret'      => '',
-		'download_method'    => 'stream', // 'stream' or 'redirect'
-		'cache_ttl'          => 600,      // 10 minutes
-		'chunk_size_mb'      => 8,        // 8MB stream chunks
-		'enable_shared_drive'=> true,
+		'download_method'    => 'redirect', // 'redirect' (native) or 'stream' (via Pro add-on)
+		'cache_ttl'          => 600,        // 10 minutes
+		'chunk_size_mb'      => 8,          // 8MB stream chunks
+		'enable_shared_drive'=> false,
 	);
 
 	if ( false === get_option( DRIVEVAULT_OPTION_SETTINGS ) ) {
-		update_option( DRIVEVAULT_OPTION_SETTINGS, $default_settings );
+		update_option( DRIVEVAULT_OPTION_SETTINGS, $default_settings, false );
 	}
 } );
 

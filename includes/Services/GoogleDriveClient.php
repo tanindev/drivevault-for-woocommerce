@@ -114,14 +114,21 @@ class GoogleDriveClient {
 			$query_parts[] = "mimeType != 'application/vnd.google-apps.folder'";
 		}
 
+		$settings                 = get_option( DRIVEVAULT_OPTION_SETTINGS, array() );
+		$has_shared_drive_support = (bool) apply_filters( 'drivevault_has_shared_drive_support', false );
+		$enable_shared_drive      = $has_shared_drive_support && ! empty( $settings['enable_shared_drive'] );
+
 		$params = array(
-			'q'                         => implode( ' and ', $query_parts ),
-			'pageSize'                  => $page_size,
-			'fields'                    => 'nextPageToken, files(id, name, mimeType, size, modifiedTime, iconLink, thumbnailLink, webViewLink, webContentLink, md5Checksum, shared, parents, capabilities)',
-			'orderBy'                   => 'folder, name_natural',
-			'supportsAllDrives'         => 'true',
-			'includeItemsFromAllDrives' => 'true',
+			'q'        => implode( ' and ', $query_parts ),
+			'pageSize' => $page_size,
+			'fields'   => 'nextPageToken, files(id, name, mimeType, size, modifiedTime, iconLink, thumbnailLink, webViewLink, webContentLink, md5Checksum, shared, parents, capabilities)',
+			'orderBy'  => 'folder, name_natural',
 		);
+
+		if ( $enable_shared_drive ) {
+			$params['supportsAllDrives']         = 'true';
+			$params['includeItemsFromAllDrives'] = 'true';
+		}
 
 		if ( ! empty( $page_token ) ) {
 			$params['pageToken'] = $page_token;
@@ -226,10 +233,17 @@ class GoogleDriveClient {
 			return $cached;
 		}
 
+		$settings                 = get_option( DRIVEVAULT_OPTION_SETTINGS, array() );
+		$has_shared_drive_support = (bool) apply_filters( 'drivevault_has_shared_drive_support', false );
+		$enable_shared_drive      = $has_shared_drive_support && ! empty( $settings['enable_shared_drive'] );
+
 		$params = array(
-			'fields'                    => 'id, name, mimeType, size, modifiedTime, webContentLink, md5Checksum, capabilities',
-			'supportsAllDrives'         => 'true',
+			'fields' => 'id, name, mimeType, size, modifiedTime, webContentLink, md5Checksum, capabilities',
 		);
+
+		if ( $enable_shared_drive ) {
+			$params['supportsAllDrives'] = 'true';
+		}
 
 		$file = $this->request( '/files/' . urlencode( $file_id ), $params );
 		if ( is_wp_error( $file ) ) {

@@ -56,10 +56,6 @@ class Template {
 	 * @param string $default_path  Custom plugin fallback path.
 	 */
 	public static function get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
-		if ( ! empty( $args ) && is_array( $args ) ) {
-			extract( $args ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- Extracting template arguments is standard practice for WordPress template loaders.
-		}
-
 		$located = self::locate_template( $template_name, $template_path, $default_path );
 
 		if ( ! file_exists( $located ) ) {
@@ -68,7 +64,7 @@ class Template {
 
 		do_action( 'drivevault_before_template_part', $template_name, $template_path, $located, $args );
 
-		include $located;
+		load_template( $located, false, $args );
 
 		do_action( 'drivevault_after_template_part', $template_name, $template_path, $located, $args );
 	}

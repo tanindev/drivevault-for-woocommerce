@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-04T00:01:22+00:00\n"
+"POT-Creation-Date: 2026-09-06T14:23:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: drivevault-for-woocommerce\n"
@@ -62,6 +62,8 @@ msgid "Loading Google Drive Integration..."
 msgstr ""
 
 #: includes/Admin/Assets.php:44
+#: src/product-picker.js:47
+#: src/product-picker.js:88
 msgid "Add Google Drive File"
 msgstr ""
 
@@ -84,7 +86,7 @@ msgid "No files found in this folder."
 msgstr ""
 
 #: includes/Admin/Assets.php:50
-#: src/components/Settings/ApiSettings.js:205
+#: src/components/Settings/ApiSettings.js:194
 msgid "Connecting..."
 msgstr ""
 
@@ -97,11 +99,11 @@ msgstr ""
 msgid "Disconnected"
 msgstr ""
 
-#: includes/API/Controllers/AuthController.php:118
+#: includes/API/Controllers/AuthController.php:124
 msgid "Google Drive account connected successfully!"
 msgstr ""
 
-#: includes/API/Controllers/AuthController.php:131
+#: includes/API/Controllers/AuthController.php:137
 msgid "Google Drive disconnected."
 msgstr ""
 
@@ -114,16 +116,16 @@ msgstr ""
 msgid "Cache cleared successfully."
 msgstr ""
 
-#: includes/API/Controllers/SettingsController.php:107
-#: includes/API/Controllers/SettingsController.php:138
-#: templates/download-error.php:29
-#: src/components/Settings/DownloadSettings.js:70
-#: src/components/Settings/DownloadSettings.js:83
+#: includes/API/Controllers/SettingsController.php:108
+#: includes/API/Controllers/SettingsController.php:174
+#: templates/download-error.php:31
+#: src/components/Settings/DownloadSettings.js:113
+#: src/components/Settings/DownloadSettings.js:126
 msgid "Error accessing Google Drive file: Google Drive account is not connected."
 msgstr ""
 
-#: includes/API/Controllers/SettingsController.php:146
-#: src/index.js:113
+#: includes/API/Controllers/SettingsController.php:182
+#: src/index.js:162
 msgid "Settings saved successfully."
 msgstr ""
 
@@ -164,28 +166,15 @@ msgid "File"
 msgstr ""
 
 #. translators: %s: Error message from Google Drive API
-#: includes/Services/DownloadHandler.php:77
+#: includes/Services/DownloadHandler.php:78
 #, php-format
 msgid "Error accessing Google Drive file: %s"
 msgstr ""
 
-#: includes/Services/DownloadHandler.php:83
+#: includes/Services/DownloadHandler.php:84
 #: includes/Services/DownloadHandler.php:141
-#: includes/Services/DownloadHandler.php:267
-#: templates/download-error.php:28
+#: templates/download-error.php:30
 msgid "Download Unavailable"
-msgstr ""
-
-#: includes/Services/DownloadHandler.php:137
-msgid "Google Drive authentication expired. Please contact site administrator."
-msgstr ""
-
-#: includes/Services/DownloadHandler.php:248
-msgid "Failed to stream file from Google Drive. Please try again in a few moments."
-msgstr ""
-
-#: includes/Services/DownloadHandler.php:249
-msgid "Download Failed"
 msgstr ""
 
 #. translators: %d: HTTP response status code
@@ -194,7 +183,7 @@ msgstr ""
 msgid "Google Drive API error: %d"
 msgstr ""
 
-#: includes/Services/GoogleDriveClient.php:274
+#: includes/Services/GoogleDriveClient.php:288
 msgid "Unlimited"
 msgstr ""
 
@@ -203,35 +192,39 @@ msgid "Google Client ID and Client Secret are required."
 msgstr ""
 
 #: includes/Services/OAuthManager.php:99
-#: includes/Services/OAuthManager.php:208
+msgid "Invalid authorization state. Please try reconnecting again."
+msgstr ""
+
+#: includes/Services/OAuthManager.php:104
+#: includes/Services/OAuthManager.php:213
 msgid "Missing Google Client ID or Secret."
 msgstr ""
 
-#: includes/Services/OAuthManager.php:121
+#: includes/Services/OAuthManager.php:126
 msgid "Failed to exchange authorization code."
 msgstr ""
 
-#: includes/Services/OAuthManager.php:183
+#: includes/Services/OAuthManager.php:188
 msgid "Google Drive account is not connected."
 msgstr ""
 
-#: includes/Services/OAuthManager.php:193
+#: includes/Services/OAuthManager.php:198
 msgid "Refresh token is missing. Please reconnect your Google Drive account."
 msgstr ""
 
-#: includes/Services/OAuthManager.php:229
+#: includes/Services/OAuthManager.php:234
 msgid "Failed to refresh Google Drive token."
 msgstr ""
 
-#: templates/download-error.php:83
+#: templates/download-error.php:85
 msgid "Please check back shortly or contact store support if you need assistance."
 msgstr ""
 
-#: templates/download-error.php:88
+#: templates/download-error.php:90
 msgid "My Downloads"
 msgstr ""
 
-#: templates/download-error.php:91
+#: templates/download-error.php:93
 msgid "Return to Store"
 msgstr ""
 
@@ -239,11 +232,25 @@ msgstr ""
 msgid "Not Connected"
 msgstr ""
 
-#: src/components/DriveBreadcrumbs.js:41
+#: src/components/common/ToastContainer.js:106
+msgid "Dismiss notification"
+msgstr ""
+
+#: src/components/common/ToastContainer.js:145
+msgid "Notifications"
+msgstr ""
+
+#: src/components/DriveBreadcrumbs.js:12
+#: src/store/index.js:13
+#: src/store/index.js:254
+msgid "My Drive"
+msgstr ""
+
+#: src/components/DriveBreadcrumbs.js:44
 msgid "Breadcrumbs"
 msgstr ""
 
-#: src/components/DriveBreadcrumbs.js:87
+#: src/components/DriveBreadcrumbs.js:90
 msgid "Refresh folder"
 msgstr ""
 
@@ -339,101 +346,105 @@ msgstr ""
 msgid "Insert Selected"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:48
+#: src/components/Settings/ApiSettings.js:46
 msgid "Failed to generate Google Auth URL. Ensure Client ID & Secret are saved."
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:60
+#: src/components/Settings/ApiSettings.js:59
 msgid "Are you sure you want to disconnect your Google Drive account?"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:78
+#: src/components/Settings/ApiSettings.js:76
 msgid "Google Drive disconnected successfully."
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:88
+#: src/components/Settings/ApiSettings.js:85
 msgid "Failed to disconnect Google Drive."
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:129
+#: src/components/Settings/ApiSettings.js:117
 msgid "Google Drive Account Connection"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:136
+#: src/components/Settings/ApiSettings.js:124
 msgid "Connected Account:"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:143
+#: src/components/Settings/ApiSettings.js:131
 msgid "Active Account"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:151
+#: src/components/Settings/ApiSettings.js:139
 msgid "Connect your Google Cloud project to allow browsing and attaching Drive files to WooCommerce products."
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:172
+#: src/components/Settings/ApiSettings.js:160
 msgid "Disconnecting..."
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:182
+#: src/components/Settings/ApiSettings.js:170
 msgid "Disconnect Account"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:215
+#: src/components/Settings/ApiSettings.js:204
 msgid "Authorize & Connect Google Drive"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:234
+#: src/components/Settings/ApiSettings.js:223
 msgid "Google Cloud API Credentials"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:240
+#: src/components/Settings/ApiSettings.js:229
 msgid "Configure OAuth 2.0 Client credentials from your Google Cloud Console project."
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:263
+#: src/components/Settings/ApiSettings.js:252
 msgid "Hide Setup Guide"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:267
+#: src/components/Settings/ApiSettings.js:256
 msgid "View Setup Guide"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:280
+#: src/components/Settings/ApiSettings.js:269
 msgid "Step-by-Step Setup Guide:"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:348
-#: src/components/Settings/ApiSettings.js:452
+#: src/components/Settings/ApiSettings.js:337
+#: src/components/Settings/ApiSettings.js:467
 msgid "Copied!"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:352
-#: src/components/Settings/ApiSettings.js:456
+#: src/components/Settings/ApiSettings.js:341
+#: src/components/Settings/ApiSettings.js:471
 msgid "Copy URI"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:376
+#: src/components/Settings/ApiSettings.js:365
 msgid "Google Client ID"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:392
+#: src/components/Settings/ApiSettings.js:381
 msgid "Your OAuth 2.0 Client ID generated in Google Cloud Console."
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:401
+#: src/components/Settings/ApiSettings.js:390
 msgid "Google Client Secret"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:417
+#: src/components/Settings/ApiSettings.js:425
+msgid "Enter your Google Client Secret"
+msgstr ""
+
+#: src/components/Settings/ApiSettings.js:432
 msgid "Your OAuth 2.0 Client Secret generated in Google Cloud Console."
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:426
+#: src/components/Settings/ApiSettings.js:441
 msgid "Authorized Redirect URI"
 msgstr ""
 
-#: src/components/Settings/ApiSettings.js:464
+#: src/components/Settings/ApiSettings.js:479
 msgid "Must match the Authorized redirect URI in your Google Cloud Console credentials."
 msgstr ""
 
@@ -445,174 +456,211 @@ msgstr ""
 msgid "Configure how customer downloadable files are streamed and cached."
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:31
+#: src/components/Settings/DownloadSettings.js:34
+#: src/components/Settings/DownloadSettings.js:68
 msgid "File Delivery Method"
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:35
+#: src/components/Settings/DownloadSettings.js:38
 msgid "Direct Streaming proxies the download securely through your server, concealing the direct Google Drive URL from the buyer and supporting HTTP range resuming."
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:42
-msgid "Direct Chunked Stream (Recommended & Most Secure)"
+#: src/components/Settings/DownloadSettings.js:47
+msgid "Direct Chunked Stream (Pro Proxy - Conceals Drive URLs)"
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:49
-msgid "Direct URL Redirect (Fast for public shared files)"
+#: src/components/Settings/DownloadSettings.js:54
+msgid "Direct Google Drive Download (Native Redirect)"
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:64
+#: src/components/Settings/DownloadSettings.js:75
+msgid "Native Google Drive Download"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:82
+msgid "Customers are securely verified by WooCommerce and redirected directly to Google Drive native browser download endpoint."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:89
+msgid "Want to stream large files through your server without exposing Google Drive links?"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:95
+msgid "DriveVault Pro adds server-side chunked proxy streaming, complete Google Drive URL concealment, and HTTP Range 206 resumable download capability."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:107
 msgid "Google Drive Disconnected / Inaccessible Error Message"
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:79
+#: src/components/Settings/DownloadSettings.js:122
 msgid "Message displayed to customers when attempting to download a Google Drive file while the account is disconnected or inaccessible."
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:92
+#: src/components/Settings/DownloadSettings.js:139
 msgid "Stream Chunk Buffer Size (MB)"
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:102
+#: src/components/Settings/DownloadSettings.js:149
 msgid "Memory buffer size in megabytes used when streaming large files from Google Drive."
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:111
+#: src/components/Settings/DownloadSettings.js:160
 msgid "Enable Shared / Team Drives"
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:119
+#: src/components/Settings/DownloadSettings.js:168
 msgid "Allow browsing and linking downloadable files from Google Workspace Shared Drives (Team Drives)."
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:128
+#: src/components/Settings/DownloadSettings.js:176
+msgid "Need Google Workspace Shared / Team Drives?"
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:182
+msgid "Shared / Team Drives integration is available in DriveVault Pro, allowing you to attach files stored across your entire organization."
+msgstr ""
+
+#: src/components/Settings/DownloadSettings.js:193
 msgid "Drive Directory Cache TTL (Minutes)"
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:140
+#: src/components/Settings/DownloadSettings.js:205
 msgid "How long Google Drive file listings are cached in WordPress transients before refetching."
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:149
+#: src/components/Settings/DownloadSettings.js:214
 msgid "Erase Plugin Data on Uninstall"
 msgstr ""
 
-#: src/components/Settings/DownloadSettings.js:157
+#: src/components/Settings/DownloadSettings.js:222
 msgid "Check to delete stored Google tokens and settings if the plugin is deleted."
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:37
+#: src/components/Settings/SystemStatus.js:34
 msgid "Directory transient cache cleared successfully."
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:48
+#: src/components/Settings/SystemStatus.js:44
 msgid "Failed to clear cache."
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:78
+#: src/components/Settings/SystemStatus.js:65
 msgid "Google Drive Storage & Quota"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:84
+#: src/components/Settings/SystemStatus.js:71
 msgid "Live overview of your Google Cloud storage usage and limits."
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:100
+#: src/components/Settings/SystemStatus.js:87
 msgid "Clearing..."
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:113
+#: src/components/Settings/SystemStatus.js:100
 msgid "Flush Cache"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:126
+#: src/components/Settings/SystemStatus.js:113
 msgid "Connect your Google Drive account in API Settings to view storage quota and profile details."
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:136
+#: src/components/Settings/SystemStatus.js:123
 msgid "Space Used"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:147
+#: src/components/Settings/SystemStatus.js:134
 msgid "Total Storage"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:158
+#: src/components/Settings/SystemStatus.js:145
 msgid "Usage Percentage"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:217
+#: src/components/Settings/SystemStatus.js:204
 msgid "System Environment Check"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:223
+#: src/components/Settings/SystemStatus.js:210
 msgid "Server extensions and compatibility indicators."
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:235
+#: src/components/Settings/SystemStatus.js:222
 msgid "cURL Extension"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:244
-msgid "Enabled (Required for Streaming)"
+#: src/components/Settings/SystemStatus.js:231
+msgid "Enabled (Required for Google Drive API)"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:254
+#: src/components/Settings/SystemStatus.js:241
 msgid "OpenSSL / HTTPS"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:263
+#: src/components/Settings/SystemStatus.js:250
 msgid "Supported"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:273
+#: src/components/Settings/SystemStatus.js:260
 msgid "WooCommerce Download Engine"
 msgstr ""
 
-#: src/components/Settings/SystemStatus.js:282
+#: src/components/Settings/SystemStatus.js:269
 msgid "Active"
 msgstr ""
 
-#: src/index.js:61
+#: src/index.js:107
 msgid "Connected to Google Drive successfully!"
 msgstr ""
 
-#: src/index.js:79
+#: src/index.js:130
 msgid "Failed to complete Google authentication."
 msgstr ""
 
-#: src/index.js:123
+#: src/index.js:171
 msgid "Failed to save settings."
 msgstr ""
 
-#: src/index.js:134
+#: src/index.js:183
 msgid "API & Connection"
 msgstr ""
 
-#: src/index.js:139
+#: src/index.js:188
 msgid "Download Settings"
 msgstr ""
 
-#: src/index.js:144
+#: src/index.js:193
 msgid "Quota & Status"
 msgstr ""
 
-#: src/index.js:159
+#: src/index.js:209
 msgid "WooCommerce Google Drive Integration"
 msgstr ""
 
-#: src/index.js:165
-msgid "Attach Google Drive files as downloadable products with high-speed secure streaming."
+#: src/index.js:215
+msgid "Connect Google Drive to WooCommerce Downloadable Products with a modern React UI."
 msgstr ""
 
-#: src/index.js:195
+#: src/index.js:245
 msgid "Authenticating with Google Cloud..."
 msgstr ""
 
-#: src/index.js:249
+#: src/index.js:287
 msgid "Saving..."
 msgstr ""
 
-#: src/index.js:259
+#: src/index.js:297
 msgid "Save Settings"
+msgstr ""
+
+#: src/product-picker.js:153
+msgid "jQuery is required to insert downloadable files."
+msgstr ""
+
+#: src/product-picker.js:197
+msgid "Google Drive File"
+msgstr ""
+
+#: src/store/index.js:161
+msgid "Failed to fetch files"
 msgstr ""

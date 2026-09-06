@@ -58,6 +58,10 @@ class Assets {
 
 		// 1. Settings Page App
 		if ( $is_settings_page ) {
+			$settings_controller       = new \DriveVault\API\Controllers\SettingsController( $oauth );
+			$current_settings          = get_option( DRIVEVAULT_OPTION_SETTINGS, array() );
+			$localized_data['settings'] = $settings_controller->format_settings_response( $current_settings );
+
 			$asset_file = DRIVEVAULT_PATH . 'assets/build/index.asset.php';
 			$asset_info = file_exists( $asset_file ) ? require $asset_file : array(
 				'dependencies' => array( 'wp-element', 'wp-components', 'wp-api-fetch', 'wp-data', 'wp-i18n' ),
@@ -73,6 +77,7 @@ class Assets {
 			);
 
 			wp_localize_script( 'drivevault-admin-settings', 'drivevaultData', $localized_data );
+			wp_set_script_translations( 'drivevault-admin-settings', 'drivevault-for-woocommerce', DRIVEVAULT_PATH . 'languages' );
 
 			if ( file_exists( DRIVEVAULT_PATH . 'assets/build/index.css' ) ) {
 				wp_enqueue_style(
@@ -101,6 +106,7 @@ class Assets {
 			);
 
 			wp_localize_script( 'drivevault-product-picker', 'drivevaultData', $localized_data );
+			wp_set_script_translations( 'drivevault-product-picker', 'drivevault-for-woocommerce', DRIVEVAULT_PATH . 'languages' );
 
 			if ( file_exists( DRIVEVAULT_PATH . 'assets/build/product-picker.css' ) ) {
 				wp_enqueue_style(

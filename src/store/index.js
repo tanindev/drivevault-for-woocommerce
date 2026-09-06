@@ -1,12 +1,18 @@
 import { createReduxStore, register } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
+import { __ } from '@wordpress/i18n';
 
 const STORE_NAME = 'drivevault/drive';
 
 const DEFAULT_STATE = {
 	files: [],
 	currentFolderId: 'root',
-	breadcrumbs: [ { id: 'root', name: 'My Drive' } ],
+	breadcrumbs: [
+		{
+			id: 'root',
+			name: __( 'My Drive', 'drivevault-for-woocommerce' ),
+		},
+	],
 	searchQuery: '',
 	filterType: 'all',
 	selectedFiles: [],
@@ -17,7 +23,8 @@ const DEFAULT_STATE = {
 		account_email: '',
 	},
 	quota: null,
-	settings: null,
+	settings: window.drivevaultData?.settings || null,
+	toasts: [],
 };
 
 const actions = {
@@ -93,6 +100,28 @@ const actions = {
 			settings,
 		};
 	},
+	addToast( toast ) {
+		return {
+			type: 'ADD_TOAST',
+			toast: {
+				id: toast.id || Date.now() + Math.random(),
+				status: toast.status || 'success',
+				message: toast.message || '',
+				duration: toast.duration !== undefined ? toast.duration : 4000,
+			},
+		};
+	},
+	removeToast( id ) {
+		return {
+			type: 'REMOVE_TOAST',
+			id,
+		};
+	},
+	createToast( message, status = 'success', duration = 4000 ) {
+		return ( { dispatch } ) => {
+			dispatch.addToast( { message, status, duration } );
+		};
+	},
 
 	// Async action thunks
 	fetchFiles( params = {} ) {
@@ -127,7 +156,13 @@ const actions = {
 
 				dispatch.setFiles( response.files || [] );
 			} catch ( err ) {
-				dispatch.setError( err.message || 'Failed to fetch files' );
+				dispatch.setError(
+					err.message ||
+						__(
+							'Failed to fetch files',
+							'drivevault-for-woocommerce'
+						)
+				);
 				dispatch.setFiles( [] );
 			} finally {
 				dispatch.setLoading( false );
@@ -216,7 +251,7 @@ const reducer = ( state = DEFAULT_STATE, action ) => {
 			const slice = state.breadcrumbs.slice( 0, action.index + 1 );
 			const target = slice[ slice.length - 1 ] || {
 				id: 'root',
-				name: 'My Drive',
+				name: __( 'My Drive', 'drivevault-for-woocommerce' ),
 			};
 			return {
 				...state,
@@ -255,7 +290,22 @@ const reducer = ( state = DEFAULT_STATE, action ) => {
 		case 'SET_QUOTA':
 			return { ...state, quota: action.quota };
 		case 'SET_SETTINGS':
-			return { ...state, settings: action.settings };
+			return {
+				...state,
+				settings: action.settings
+					? { ...( state.settings || {} ), ...action.settings }
+					: null,
+			};
+		case 'ADD_TOAST':
+			return {
+				...state,
+				toasts: [ ...state.toasts, action.toast ],
+			};
+		case 'REMOVE_TOAST':
+			return {
+				...state,
+				toasts: state.toasts.filter( ( t ) => t.id !== action.id ),
+			};
 		default:
 			return state;
 	}
@@ -297,6 +347,9 @@ const selectors = {
 	},
 	getSettings( state ) {
 		return state.settings;
+	},
+	getToasts( state ) {
+		return state.toasts || [];
 	},
 };
 

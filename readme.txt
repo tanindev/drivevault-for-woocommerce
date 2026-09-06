@@ -9,7 +9,7 @@ Stable tag: 1.0.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Connect Google Drive to WooCommerce Downloadable Products with a modern React UI and secure streaming downloads.
+Connect Google Drive to WooCommerce Downloadable Products with a modern React UI and native Google Drive downloads.
 
 == Description ==
 
@@ -22,9 +22,8 @@ Built with a fast, modern React user interface powered by WordPress core package
 * **Seamless Google Drive Connection**: Connect your Google Cloud project using OAuth 2.0 with a single authorization flow.
 * **Modern React File Picker**: Browse Google Drive folders, search in real-time, and multi-select files directly from the WooCommerce Product Edit screen.
 * **Simple & Variable Products Support**: Full compatibility with both single downloadable products and variable product variations.
-* **High-Speed Secure Streaming**: Files are proxied directly and securely through your server, concealing the underlying Google Drive URLs and enforcing WooCommerce order access rules.
-* **HTTP Range & Resume Support**: Large files support chunked streaming with resumable download capability.
-* **Shared Drives / Team Drives Support**: Browse and attach files from Google Workspace Shared Drives.
+* **Native Google Drive Downloads**: Directs authorized buyers to Google Drive's native browser download endpoint while verifying WooCommerce order access rules.
+* **Pro Add-on Extensibility**: Seamlessly integrates with the DriveVault Pro add-on for advanced server-side chunked proxy streaming, Google Workspace Shared / Team Drives support, URL masking, and HTTP Range resumes.
 * **High-Performance Order Storage (HPOS) Ready**: Fully compatible with WooCommerce HPOS and Custom Order Tables.
 * **Fast Caching**: Folder listings and metadata are cached using WordPress Transients with instant manual refresh.
 
@@ -43,13 +42,31 @@ This plugin connects to external 3rd-party services provided by Google to enable
 * **Privacy Policy**: [Google Privacy Policy](https://policies.google.com/privacy) (https://policies.google.com/privacy)
 
 = Google Drive API v3 =
-* **What the service is and what it is used for**: Browses Google Drive folders, searches files, retrieves file metadata, and securely streams downloadable product files attached to WooCommerce products.
+* **What the service is and what it is used for**: Browses Google Drive folders, searches files, retrieves file metadata, and serves downloadable product files attached to WooCommerce products.
 * **What data is sent and when**:
     * When store managers browse or search files within the WooCommerce product editor, API queries containing folder IDs, search terms, and pagination tokens are sent to `https://www.googleapis.com/drive/v3/files`.
-    * When customers download purchased digital files, file requests are sent using the store's OAuth token to stream the file binary content directly from `https://www.googleapis.com/drive/v3/files/{file_id}?alt=media`.
+    * When customers download purchased digital files, authorized buyers are redirected to Google Drive's native browser download endpoint, or securely proxied when using the Pro add-on.
 * **Service Provider**: Google LLC
 * **Terms of Service**: [Google APIs Terms of Service](https://developers.google.com/terms) (https://developers.google.com/terms)
 * **Privacy Policy**: [Google Privacy Policy](https://policies.google.com/privacy) (https://policies.google.com/privacy)
+
+== Third-Party Assets ==
+
+* **Google Material Symbols / Icons Font**
+    * File: `assets/fonts/drivevault-icon.woff2`
+    * Source: https://fonts.google.com/icons
+    * Copyright: Google LLC
+    * License: Apache License 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+
+== Source Code and Build ==
+
+The unminified React source code for the admin dashboard and product file picker is open source and publicly hosted on GitHub:
+* GitHub Repository: https://github.com/tanindev/drivevault-for-woocommerce
+
+To compile production assets:
+1. Ensure Node.js (v18+) and npm are installed.
+2. Run `npm install`
+3. Run `npm run build` to generate production assets in `assets/build/`.
 
 == Installation ==
 
@@ -61,16 +78,16 @@ This plugin connects to external 3rd-party services provided by Google to enable
 
 == Frequently Asked Questions ==
 
-= Does this plugin expose my Google Drive file links to buyers? =
-No. When using the default **Direct Chunked Stream** mode, download requests are verified by WooCommerce and securely piped directly to the buyer without ever exposing the Google Drive URL.
+= How are downloads delivered to customers? =
+WooCommerce verifies the customer's purchase permissions, then securely directs the customer's browser to the Google Drive file download endpoint.
 
-= Are large files supported? =
-Yes. The plugin uses chunked streaming and respects HTTP range requests so large downloads won't exhaust server memory or fail on unstable connections.
+= Can I stream files through my server to hide Google Drive URLs? =
+Yes! Server-side chunked proxy streaming (which conceals Google Drive URLs and supports HTTP Range resumable transfers) is supported via the DriveVault Pro add-on.
 
 = Does it support Google Shared Drives (Team Drives)? =
-Yes! You can enable Shared Drive support in the settings to access all files across your organization.
+Support for Google Workspace Shared Drives (Team Drives) is available with the DriveVault Pro add-on, allowing store managers to browse and link files shared across their organization.
 
 == Changelog ==
 
 = 1.0.0 =
-* Initial release with Google Drive OAuth2 integration, React File Picker modal, and secure WooCommerce download streamer.
+* Initial release with Google Drive OAuth2 integration, React File Picker modal, and WooCommerce Google Drive download integration.

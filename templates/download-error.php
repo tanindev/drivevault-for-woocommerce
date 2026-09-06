@@ -18,17 +18,19 @@
 
 defined( 'ABSPATH' ) || exit;
 
+$drivevault_status_code = isset( $args['status_code'] ) ? (int) $args['status_code'] : 502;
+
 if ( ! headers_sent() ) {
-	status_header( ! empty( $status_code ) ? (int) $status_code : ( ! empty( $drivevault_status_code ) ? (int) $drivevault_status_code : 502 ) );
+	status_header( $drivevault_status_code );
 	header( 'Content-Type: text/html; charset=' . get_bloginfo( 'charset' ) );
 }
 
-$drivevault_site_name = ! empty( $site_name ) ? $site_name : ( ! empty( $drivevault_site_name ) ? $drivevault_site_name : get_bloginfo( 'name' ) );
-$drivevault_home_url  = ! empty( $home_url ) ? $home_url : ( ! empty( $drivevault_home_url ) ? $drivevault_home_url : home_url( '/' ) );
-$drivevault_title     = ! empty( $title ) ? $title : ( ! empty( $drivevault_title ) ? $drivevault_title : __( 'Download Unavailable', 'drivevault-for-woocommerce' ) );
-$drivevault_message   = ! empty( $message ) ? $message : ( ! empty( $drivevault_message ) ? $drivevault_message : __( 'Error accessing Google Drive file: Google Drive account is not connected.', 'drivevault-for-woocommerce' ) );
+$drivevault_site_name = isset( $args['site_name'] ) ? $args['site_name'] : ( ! empty( $site_name ) ? $site_name : get_bloginfo( 'name' ) );
+$drivevault_home_url  = isset( $args['home_url'] ) ? $args['home_url'] : ( ! empty( $home_url ) ? $home_url : home_url( '/' ) );
+$drivevault_title     = isset( $args['title'] ) ? $args['title'] : ( ! empty( $title ) ? $title : __( 'Download Unavailable', 'drivevault-for-woocommerce' ) );
+$drivevault_message   = isset( $args['message'] ) ? $args['message'] : ( ! empty( $message ) ? $message : __( 'Error accessing Google Drive file: Google Drive account is not connected.', 'drivevault-for-woocommerce' ) );
 
-$drivevault_account_url = ! empty( $account_url ) ? $account_url : ( ! empty( $drivevault_account_url ) ? $drivevault_account_url : '' );
+$drivevault_account_url = isset( $args['account_url'] ) ? $args['account_url'] : ( ! empty( $account_url ) ? $account_url : '' );
 if ( empty( $drivevault_account_url ) ) {
 	$drivevault_account_url = function_exists( 'wc_get_account_endpoint_url' ) ? wc_get_account_endpoint_url( 'downloads' ) : '';
 	if ( empty( $drivevault_account_url ) && function_exists( 'wc_get_page_permalink' ) ) {

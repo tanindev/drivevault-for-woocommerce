@@ -60,7 +60,7 @@ if ( fs.existsSync( path.resolve( rootDir, zipFileName ) ) ) {
 
 fs.mkdirSync( pluginDistDir, { recursive: true } );
 
-// Copy essential WordPress plugin files & folders
+// Copy essential WordPress plugin files & folders (production only - excludes raw sources and dev build configs)
 const includeItems = [
 	'assets',
 	'includes',
@@ -76,20 +76,16 @@ const copyRecursive = ( src, dest ) => {
 	if ( stat.isDirectory() ) {
 		fs.mkdirSync( dest, { recursive: true } );
 		fs.readdirSync( src ).forEach( ( child ) => {
-			// Exclude hidden files or source/dev directories
+			// Exclude hidden files, dist, or node_modules
 			if (
 				child.startsWith( '.' ) ||
 				child === 'node_modules' ||
-				child === 'src' ||
-				child.includes( 'ewcgd' )
+				child === 'dist'
 			)
 				return;
 			copyRecursive( path.join( src, child ), path.join( dest, child ) );
 		} );
 	} else {
-		if ( src.includes( 'ewcgd' ) ) {
-			return;
-		}
 		fs.copyFileSync( src, dest );
 	}
 };
@@ -103,7 +99,7 @@ includeItems.forEach( ( item ) => {
 } );
 
 execSync(
-	`cd "${ distDir }" && zip -r -q "../${ zipFileName }" "${ pluginSlug }"`,
+	`cd "${ distDir }" && zip -r -q "../${ zipFileName }" "${ pluginSlug }" -x "*.DS_Store"`,
 	{ stdio: 'inherit', cwd: rootDir }
 );
 

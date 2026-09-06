@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { render } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import store from './store'; // Initialize @wordpress/data store
 import FilePickerModal from './components/FilePickerModal';
 import './scss/icons.scss';
@@ -41,12 +42,18 @@ const ProductPickerApp = () => {
 						'.drivevault-open-picker-btn'
 					)
 				) {
+					const buttonLabel =
+						window.drivevaultData?.i18n?.selectFromDrive ||
+						__(
+							'Add Google Drive File',
+							'drivevault-for-woocommerce'
+						);
 					const btn = document.createElement( 'button' );
 					btn.type = 'button';
 					btn.className =
 						'button drivevault-open-picker-btn drivevault-drive-btn';
 					btn.setAttribute( 'data-target', 'simple' );
-					btn.innerHTML = `${ DRIVE_SVG_ICON } <span>Add from Google Drive</span>`;
+					btn.innerHTML = `${ DRIVE_SVG_ICON } <span>${ buttonLabel }</span>`;
 					btn.style.marginLeft = '8px';
 					insertBtn.parentNode.insertBefore(
 						btn,
@@ -76,6 +83,12 @@ const ProductPickerApp = () => {
 						'.drivevault-open-picker-btn'
 					)
 				) {
+					const buttonLabel =
+						window.drivevaultData?.i18n?.selectFromDrive ||
+						__(
+							'Add Google Drive File',
+							'drivevault-for-woocommerce'
+						);
 					const btn = document.createElement( 'button' );
 					btn.type = 'button';
 					btn.className =
@@ -84,7 +97,7 @@ const ProductPickerApp = () => {
 					if ( loop !== null ) {
 						btn.setAttribute( 'data-loop', loop );
 					}
-					btn.innerHTML = `${ DRIVE_SVG_ICON } <span>Add from Google Drive</span>`;
+					btn.innerHTML = `${ DRIVE_SVG_ICON } <span>${ buttonLabel }</span>`;
 					btn.style.marginLeft = '8px';
 					insertBtn.parentNode.insertBefore(
 						btn,
@@ -136,7 +149,12 @@ const ProductPickerApp = () => {
 
 		const $ = window.jQuery;
 		if ( ! $ ) {
-			alert( 'jQuery is required to insert downloadable files.' );
+			alert(
+				__(
+					'jQuery is required to insert downloadable files.',
+					'drivevault-for-woocommerce'
+				)
+			);
 			return;
 		}
 
@@ -174,7 +192,9 @@ const ProductPickerApp = () => {
 			$insertButton.attr( 'data-row' ) || $insertButton.data( 'row' );
 
 		files.forEach( ( file ) => {
-			const fileName = file.name || 'Google Drive File';
+			const fileName =
+				file.name ||
+				__( 'Google Drive File', 'drivevault-for-woocommerce' );
 			const fileUrl = file.download_url || `gdrive://file/${ file.id }`;
 
 			// Check if there is an existing empty row in the table

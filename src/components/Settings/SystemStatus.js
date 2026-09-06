@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Spinner, Notice } from '@wordpress/components';
+import { Spinner } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
@@ -14,9 +14,8 @@ export const SystemStatus = () => {
 		( select ) => select( 'drivevault/drive' ).getConnectionStatus(),
 		[]
 	);
-	const { fetchQuota } = useDispatch( 'drivevault/drive' );
+	const { fetchQuota, createToast } = useDispatch( 'drivevault/drive' );
 	const [ clearing, setClearing ] = useState( false );
-	const [ notice, setNotice ] = useState( null );
 
 	useEffect( () => {
 		if ( connectionStatus?.is_connected ) {
@@ -26,30 +25,28 @@ export const SystemStatus = () => {
 
 	const handleClearCache = async () => {
 		setClearing( true );
-		setNotice( null );
 		try {
 			await apiFetch( {
 				path: 'drivevault/v1/drive/flush-cache',
 				method: 'POST',
 			} );
-			setNotice( {
-				status: 'success',
-				message: __(
+			createToast(
+				__(
 					'Directory transient cache cleared successfully.',
 					'drivevault-for-woocommerce'
 				),
-			} );
+				'success'
+			);
 			fetchQuota();
 		} catch ( err ) {
-			setNotice( {
-				status: 'error',
-				message:
-					err.message ||
+			createToast(
+				err.message ||
 					__(
 						'Failed to clear cache.',
 						'drivevault-for-woocommerce'
 					),
-			} );
+				'error'
+			);
 		} finally {
 			setClearing( false );
 		}
@@ -59,16 +56,6 @@ export const SystemStatus = () => {
 
 	return (
 		<div className="drivevault-settings-section">
-			{ notice && (
-				<Notice
-					status={ notice.status }
-					onRemove={ () => setNotice( null ) }
-					className="drivevault-mb-4"
-				>
-					<p>{ notice.message }</p>
-				</Notice>
-			) }
-
 			{ /* Storage Quota Card */ }
 			<div className="drivevault-ui-card">
 				<div className="drivevault-ui-card__header">
@@ -242,7 +229,7 @@ export const SystemStatus = () => {
 									<span className="drivevault-tag drivevault-tag--success">
 										<Icon name="check" size={ 14 } />{ ' ' }
 										{ __(
-											'Enabled (Required for Streaming)',
+											'Enabled (Required for Google Drive API)',
 											'drivevault-for-woocommerce'
 										) }
 									</span>

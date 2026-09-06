@@ -7,7 +7,10 @@ export const DriveBreadcrumbs = ( { onRefresh } ) => {
 	const breadcrumbs = useSelect(
 		( select ) =>
 			select( 'drivevault/drive' )?.getBreadcrumbs?.() || [
-				{ id: 'root', name: 'My Drive' },
+				{
+					id: 'root',
+					name: __( 'My Drive', 'drivevault-for-woocommerce' ),
+				},
 			],
 		[]
 	);

@@ -91,29 +91,48 @@ class SettingsController {
 	}
 
 	/**
-	 * Get plugin settings.
+	 * Shape settings array for API responses with capability flags and redirect URI.
+	 *
+	 * @param array $settings Raw options array.
+	 * @return array
 	 */
-	public function get_settings( WP_REST_Request $request ) {
-		$settings = get_option( DRIVEVAULT_OPTION_SETTINGS, array() );
-
+	public function format_settings_response( array $settings ) {
 		$defaults = array(
 			'client_id'                  => '',
 			'client_secret'              => '',
-			'download_method'            => 'stream',
+			'download_method'            => 'redirect',
 			'cache_ttl'                  => 600,
 			'chunk_size_mb'              => 8,
-			'enable_shared_drive'        => true,
+			'enable_shared_drive'        => false,
 			'delete_data_on_uninstall'   => false,
 			'error_message_disconnected' => __( 'Error accessing Google Drive file: Google Drive account is not connected.', 'drivevault-for-woocommerce' ),
 		);
 
 		$merged = wp_parse_args( $settings, $defaults );
 
-		// Mask client_secret partially if set for security
-		$response_data = $merged;
-		$response_data['redirect_uri'] = $this->oauth->get_redirect_uri();
+		$has_client_secret                         = ! empty( $merged['client_secret'] );
+		$response_data                             = $merged;
+		$response_data['has_client_secret']         = $has_client_secret;
+		if ( $has_client_secret ) {
+			$response_data['client_secret'] = '••••••••••••••••••••';
+		}
+		$response_data['redirect_uri']               = $this->oauth->get_redirect_uri();
+		$response_data['available_download_methods'] = apply_filters( 'drivevault_allowed_download_methods', array( 'redirect' ) );
+		$has_shared_drive_support                   = (bool) apply_filters( 'drivevault_has_shared_drive_support', false );
+		$response_data['has_shared_drive_support']   = $has_shared_drive_support;
+		if ( ! $has_shared_drive_support ) {
+			$response_data['enable_shared_drive'] = false;
+		}
 
-		return new WP_REST_Response( $response_data, 200 );
+		return $response_data;
+	}
+
+	/**
+	 * Get plugin settings.
+	 */
+	public function get_settings( WP_REST_Request $request ) {
+		$settings = get_option( DRIVEVAULT_OPTION_SETTINGS, array() );
+		return new WP_REST_Response( $this->format_settings_response( $settings ), 200 );
 	}
 
 	/**
@@ -127,22 +146,39 @@ class SettingsController {
 			$params = $request->get_params();
 		}
 
+		$allowed_methods          = apply_filters( 'drivevault_allowed_download_methods', array( 'redirect' ) );
+		$has_shared_drive_support = (bool) apply_filters( 'drivevault_has_shared_drive_support', false );
+
+		$existing_secret = isset( $current['client_secret'] ) ? $current['client_secret'] : '';
+		if ( ! isset( $params['client_secret'] ) ) {
+			$client_secret = $existing_secret;
+		} else {
+			$client_secret_input = sanitize_text_field( trim( $params['client_secret'] ) );
+			if ( preg_match( '/^[•\*]+$/u', $client_secret_input ) ) {
+				$client_secret = $existing_secret;
+			} elseif ( '' === $client_secret_input ) {
+				$client_secret = ( isset( $params['client_id'] ) && empty( $params['client_id'] ) ) ? '' : $existing_secret;
+			} else {
+				$client_secret = $client_secret_input;
+			}
+		}
+
 		$updated = array(
 			'client_id'                  => isset( $params['client_id'] ) ? sanitize_text_field( trim( $params['client_id'] ) ) : ( isset( $current['client_id'] ) ? $current['client_id'] : '' ),
-			'client_secret'              => isset( $params['client_secret'] ) ? sanitize_text_field( trim( $params['client_secret'] ) ) : ( isset( $current['client_secret'] ) ? $current['client_secret'] : '' ),
-			'download_method'            => isset( $params['download_method'] ) && in_array( $params['download_method'], array( 'stream', 'redirect' ), true ) ? $params['download_method'] : 'stream',
+			'client_secret'              => $client_secret,
+			'download_method'            => isset( $params['download_method'] ) && in_array( $params['download_method'], $allowed_methods, true ) ? $params['download_method'] : 'redirect',
 			'cache_ttl'                  => isset( $params['cache_ttl'] ) ? max( 0, absint( $params['cache_ttl'] ) ) : 600,
 			'chunk_size_mb'              => isset( $params['chunk_size_mb'] ) ? max( 1, min( 64, absint( $params['chunk_size_mb'] ) ) ) : 8,
-			'enable_shared_drive'        => ! empty( $params['enable_shared_drive'] ),
+			'enable_shared_drive'        => $has_shared_drive_support && ! empty( $params['enable_shared_drive'] ),
 			'delete_data_on_uninstall'   => ! empty( $params['delete_data_on_uninstall'] ),
 			'error_message_disconnected' => isset( $params['error_message_disconnected'] ) ? sanitize_text_field( trim( $params['error_message_disconnected'] ) ) : ( isset( $current['error_message_disconnected'] ) ? $current['error_message_disconnected'] : __( 'Error accessing Google Drive file: Google Drive account is not connected.', 'drivevault-for-woocommerce' ) ),
 		);
 
-		update_option( DRIVEVAULT_OPTION_SETTINGS, $updated );
+		update_option( DRIVEVAULT_OPTION_SETTINGS, $updated, false );
 
 		return new WP_REST_Response( array(
 			'success'  => true,
-			'settings' => $updated,
+			'settings' => $this->format_settings_response( $updated ),
 			'message'  => __( 'Settings saved successfully.', 'drivevault-for-woocommerce' ),
 		), 200 );
 	}

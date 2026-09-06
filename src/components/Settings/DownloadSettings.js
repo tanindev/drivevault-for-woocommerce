@@ -27,36 +27,79 @@ export const DownloadSettings = ( { settings, onChange } ) => {
 				</div>
 				<div className="drivevault-ui-card__body">
 					<div className="drivevault-form-vertical">
-						<RadioControl
-							label={ __(
-								'File Delivery Method',
-								'drivevault-for-woocommerce'
-							) }
-							help={ __(
-								'Direct Streaming proxies the download securely through your server, concealing the direct Google Drive URL from the buyer and supporting HTTP range resuming.',
-								'drivevault-for-woocommerce'
-							) }
-							selected={ settings?.download_method || 'stream' }
-							options={ [
-								{
-									label: __(
-										'Direct Chunked Stream (Recommended & Most Secure)',
+						{ settings?.available_download_methods?.includes(
+							'stream'
+						) ? (
+							<RadioControl
+								label={ __(
+									'File Delivery Method',
+									'drivevault-for-woocommerce'
+								) }
+								help={ __(
+									'Direct Streaming proxies the download securely through your server, concealing the direct Google Drive URL from the buyer and supporting HTTP range resuming.',
+									'drivevault-for-woocommerce'
+								) }
+								selected={
+									settings?.download_method || 'redirect'
+								}
+								options={ [
+									{
+										label: __(
+											'Direct Chunked Stream (Pro Proxy - Conceals Drive URLs)',
+											'drivevault-for-woocommerce'
+										),
+										value: 'stream',
+									},
+									{
+										label: __(
+											'Direct Google Drive Download (Native Redirect)',
+											'drivevault-for-woocommerce'
+										),
+										value: 'redirect',
+									},
+								] }
+								onChange={ ( val ) =>
+									onChange( 'download_method', val )
+								}
+							/>
+						) : (
+							<div className="drivevault-free-delivery-info">
+								<label className="components-base-control__label">
+									{ __(
+										'File Delivery Method',
 										'drivevault-for-woocommerce'
-									),
-									value: 'stream',
-								},
-								{
-									label: __(
-										'Direct URL Redirect (Fast for public shared files)',
+									) }
+								</label>
+								<div className="drivevault-delivery-badge-row">
+									<span className="drivevault-status-badge is-connected">
+										{ __(
+											'Native Google Drive Download',
+											'drivevault-for-woocommerce'
+										) }
+									</span>
+								</div>
+								<p className="components-base-control__help">
+									{ __(
+										'Customers are securely verified by WooCommerce and redirected directly to Google Drive native browser download endpoint.',
 										'drivevault-for-woocommerce'
-									),
-									value: 'redirect',
-								},
-							] }
-							onChange={ ( val ) =>
-								onChange( 'download_method', val )
-							}
-						/>
+									) }
+								</p>
+								<div className="drivevault-pro-callout">
+									<strong>
+										{ __(
+											'Want to stream large files through your server without exposing Google Drive links?',
+											'drivevault-for-woocommerce'
+										) }
+									</strong>
+									<p>
+										{ __(
+											'DriveVault Pro adds server-side chunked proxy streaming, complete Google Drive URL concealment, and HTTP Range 206 resumable download capability.',
+											'drivevault-for-woocommerce'
+										) }
+									</p>
+								</div>
+							</div>
+						) }
 
 						<hr className="drivevault-divider" />
 
@@ -88,39 +131,61 @@ export const DownloadSettings = ( { settings, onChange } ) => {
 
 						<hr className="drivevault-divider" />
 
-						<RangeControl
-							label={ __(
-								'Stream Chunk Buffer Size (MB)',
-								'drivevault-for-woocommerce'
-							) }
-							value={ settings?.chunk_size_mb || 8 }
-							onChange={ ( val ) =>
-								onChange( 'chunk_size_mb', val )
-							}
-							min={ 1 }
-							max={ 32 }
-							help={ __(
-								'Memory buffer size in megabytes used when streaming large files from Google Drive.',
-								'drivevault-for-woocommerce'
-							) }
-						/>
+						{ settings?.available_download_methods?.includes(
+							'stream'
+						) && (
+							<>
+								<RangeControl
+									label={ __(
+										'Stream Chunk Buffer Size (MB)',
+										'drivevault-for-woocommerce'
+									) }
+									value={ settings?.chunk_size_mb || 8 }
+									onChange={ ( val ) =>
+										onChange( 'chunk_size_mb', val )
+									}
+									min={ 1 }
+									max={ 32 }
+									help={ __(
+										'Memory buffer size in megabytes used when streaming large files from Google Drive.',
+										'drivevault-for-woocommerce'
+									) }
+								/>
+								<hr className="drivevault-divider" />
+							</>
+						) }
 
-						<hr className="drivevault-divider" />
-
-						<ToggleControl
-							label={ __(
-								'Enable Shared / Team Drives',
-								'drivevault-for-woocommerce'
-							) }
-							checked={ !! settings?.enable_shared_drive }
-							onChange={ ( val ) =>
-								onChange( 'enable_shared_drive', val )
-							}
-							help={ __(
-								'Allow browsing and linking downloadable files from Google Workspace Shared Drives (Team Drives).',
-								'drivevault-for-woocommerce'
-							) }
-						/>
+						{ settings?.has_shared_drive_support ? (
+							<ToggleControl
+								label={ __(
+									'Enable Shared / Team Drives',
+									'drivevault-for-woocommerce'
+								) }
+								checked={ !! settings?.enable_shared_drive }
+								onChange={ ( val ) =>
+									onChange( 'enable_shared_drive', val )
+								}
+								help={ __(
+									'Allow browsing and linking downloadable files from Google Workspace Shared Drives (Team Drives).',
+									'drivevault-for-woocommerce'
+								) }
+							/>
+						) : (
+							<div className="drivevault-pro-callout">
+								<strong>
+									{ __(
+										'Need Google Workspace Shared / Team Drives?',
+										'drivevault-for-woocommerce'
+									) }
+								</strong>
+								<p>
+									{ __(
+										'Shared / Team Drives integration is available in DriveVault Pro, allowing you to attach files stored across your entire organization.',
+										'drivevault-for-woocommerce'
+									) }
+								</p>
+							</div>
+						) }
 
 						<hr className="drivevault-divider" />
 

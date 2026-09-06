@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import {
 	TextControl,
 	Button,
-	Notice,
 	ClipboardButton,
 	ExternalLink,
 	Spinner,
 } from '@wordpress/components';
+import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import Icon from '../common/Icon';
@@ -21,8 +21,9 @@ export const ApiSettings = ( {
 	const [ copied, setCopied ] = useState( false );
 	const [ connecting, setConnecting ] = useState( false );
 	const [ disconnecting, setDisconnecting ] = useState( false );
-	const [ notice, setNotice ] = useState( null );
 	const [ showInstructions, setShowInstructions ] = useState( false );
+
+	const { createToast } = useDispatch( 'drivevault/drive' );
 
 	const redirectUri =
 		window.location.origin +
@@ -31,7 +32,6 @@ export const ApiSettings = ( {
 
 	const handleConnect = async () => {
 		setConnecting( true );
-		setNotice( null );
 		try {
 			await onSave();
 			const response = await apiFetch( {
@@ -41,15 +41,14 @@ export const ApiSettings = ( {
 				window.location.href = response.url;
 			}
 		} catch ( err ) {
-			setNotice( {
-				status: 'error',
-				message:
-					err.message ||
+			createToast(
+				err.message ||
 					__(
 						'Failed to generate Google Auth URL. Ensure Client ID & Secret are saved.',
 						'drivevault-for-woocommerce'
 					),
-			} );
+				'error'
+			);
 			setConnecting( false );
 		}
 	};
@@ -73,23 +72,22 @@ export const ApiSettings = ( {
 				method: 'POST',
 			} );
 			onStatusChange();
-			setNotice( {
-				status: 'success',
-				message: __(
+			createToast(
+				__(
 					'Google Drive disconnected successfully.',
 					'drivevault-for-woocommerce'
 				),
-			} );
+				'success'
+			);
 		} catch ( err ) {
-			setNotice( {
-				status: 'error',
-				message:
-					err.message ||
+			createToast(
+				err.message ||
 					__(
 						'Failed to disconnect Google Drive.',
 						'drivevault-for-woocommerce'
 					),
-			} );
+				'error'
+			);
 		} finally {
 			setDisconnecting( false );
 		}
@@ -99,16 +97,6 @@ export const ApiSettings = ( {
 
 	return (
 		<div className="drivevault-settings-section">
-			{ notice && (
-				<Notice
-					status={ notice.status }
-					onRemove={ () => setNotice( null ) }
-					className="drivevault-mb-4"
-				>
-					<p>{ notice.message }</p>
-				</Notice>
-			) }
-
 			{ /* Modern Connection Banner Card */ }
 			<div
 				className={ `drivevault-ui-card drivevault-auth-card ${
@@ -195,7 +183,8 @@ export const ApiSettings = ( {
 								disabled={
 									connecting ||
 									! settings?.client_id ||
-									! settings?.client_secret
+									( ! settings?.client_secret &&
+										! settings?.has_client_secret )
 								}
 							>
 								{ connecting ? (
@@ -411,7 +400,33 @@ export const ApiSettings = ( {
 								onChange={ ( e ) =>
 									onChange( 'client_secret', e.target.value )
 								}
-								placeholder="••••••••••••••••••••••••"
+								onFocus={ ( e ) => {
+									if (
+										e.target.value &&
+										e.target.value.includes( '•' )
+									) {
+										onChange( 'client_secret', '' );
+									}
+								} }
+								onBlur={ ( e ) => {
+									if (
+										! e.target.value &&
+										settings?.has_client_secret
+									) {
+										onChange(
+											'client_secret',
+											'••••••••••••••••••••'
+										);
+									}
+								} }
+								placeholder={
+									settings?.has_client_secret
+										? '••••••••••••••••••••'
+										: __(
+												'Enter your Google Client Secret',
+												'drivevault-for-woocommerce'
+										  )
+								}
 							/>
 							<span className="drivevault-help-text">
 								{ __(

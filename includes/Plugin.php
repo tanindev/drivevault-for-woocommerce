@@ -79,7 +79,7 @@ class Plugin {
 
 		global $wpdb;
 
-		$table_name = $wpdb->prefix . 'wc_product_download_directories';
+		$table_name = esc_sql( $wpdb->prefix . 'wc_product_download_directories' );
 
 		// Verify table exists.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -94,8 +94,12 @@ class Plugin {
 		);
 
 		foreach ( $approved_urls as $url ) {
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT url_id FROM {$wpdb->prefix}wc_product_download_directories WHERE url = %s", $url ) );
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+			$exists = $wpdb->get_var(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$wpdb->prepare( "SELECT url_id FROM {$table_name} WHERE url = %s", $url ) // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+			);
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 			if ( ! $exists ) {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 				$wpdb->insert(

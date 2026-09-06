@@ -90,10 +90,15 @@ class OAuthManager {
 	/**
 	 * Exchange Authorization Code for Access & Refresh Tokens.
 	 *
-	 * @param string $code Authorization code from Google.
+	 * @param string $code  Authorization code from Google.
+	 * @param string $state Optional OAuth state nonce.
 	 * @return array|\WP_Error
 	 */
-	public function handle_auth_code( $code ) {
+	public function handle_auth_code( $code, $state = '' ) {
+		if ( ! empty( $state ) && ! wp_verify_nonce( $state, 'drivevault_oauth_state' ) ) {
+			return new \WP_Error( 'invalid_state', __( 'Invalid authorization state. Please try reconnecting again.', 'drivevault-for-woocommerce' ) );
+		}
+
 		$creds = $this->get_credentials();
 		if ( empty( $creds['client_id'] ) || empty( $creds['client_secret'] ) ) {
 			return new \WP_Error( 'missing_credentials', __( 'Missing Google Client ID or Secret.', 'drivevault-for-woocommerce' ) );
@@ -144,7 +149,7 @@ class OAuthManager {
 			$tokens['account_picture'] = ! empty( $user_info['picture'] ) ? $user_info['picture'] : '';
 		}
 
-		update_option( DRIVEVAULT_OPTION_TOKENS, $tokens );
+		update_option( DRIVEVAULT_OPTION_TOKENS, $tokens, false );
 		\DriveVault\Helpers\Cache::flush_all();
 
 		return $tokens;
@@ -237,7 +242,7 @@ class OAuthManager {
 			$tokens['refresh_token'] = $data['refresh_token'];
 		}
 
-		update_option( DRIVEVAULT_OPTION_TOKENS, $tokens );
+		update_option( DRIVEVAULT_OPTION_TOKENS, $tokens, false );
 
 		return $tokens['access_token'];
 	}
